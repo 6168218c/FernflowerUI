@@ -1,0 +1,4 @@
+﻿  FernFlowerUI.cpp
+d:\syk2015\c++\fernflowerui\fernflowerui\fernflowerui.cpp(373): warning C4244: “参数”: 从“double”转换到“WPARAM”，可能丢失数据
+  FernFlowerUI.vcxproj -> D:\syk2015\C++\FernFlowerUI\Debug\FernFlowerUI.exe
+  FernFlowerUI.vcxproj -> D:\syk2015\C++\FernFlowerUI\Debug\FernFlowerUI.pdb (Partial PDB)
