@@ -39,6 +39,12 @@
     <ClInclude Include="OutputWnd.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="zconf.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FernflowerUI_MFC.cpp">
@@ -65,6 +71,10 @@
     <None Include="res\FernflowerUIMFC.rc2">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="res\ribbon1.mfcribbon-ms">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="zlibstat.pdb" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FernflowerUIMFC.rc">
@@ -93,5 +103,8 @@
     <Image Include="res\Toolbar256.bmp">
       <Filter>资源文件</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="zlibstat.lib" />
   </ItemGroup>
 </Project>
