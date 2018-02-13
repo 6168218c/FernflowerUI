@@ -184,29 +184,39 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ClassView.h" />
+    <ClInclude Include="CommonWrapper.h" />
     <ClInclude Include="FernflowerUI_MFC.h" />
     <ClInclude Include="FernflowerUI_MFCDoc.h" />
     <ClInclude Include="FernflowerUI_MFCView.h" />
+    <ClInclude Include="FileView.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="OutputWnd.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="ShellTreeView.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="zconf.h" />
-    <ClInclude Include="zlib.h" />
+    <ClInclude Include="unzip.h" />
+    <ClInclude Include="ViewTree.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ClassView.cpp" />
+    <ClCompile Include="CommonWrapper.cpp" />
     <ClCompile Include="FernflowerUI_MFC.cpp" />
     <ClCompile Include="FernflowerUI_MFCDoc.cpp" />
     <ClCompile Include="FernflowerUI_MFCView.cpp" />
+    <ClCompile Include="FileView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="OutputWnd.cpp" />
+    <ClCompile Include="ShellTreeView.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="unzip.cpp" />
+    <ClCompile Include="ViewTree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FernflowerUI_MFC.reg" />
@@ -218,10 +228,22 @@
     <ResourceCompile Include="FernflowerUIMFC.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\classview.bmp" />
+    <Image Include="res\classview_hc.bmp" />
+    <Image Include="res\class_view.ico" />
+    <Image Include="res\class_view_hc.ico" />
+    <Image Include="res\explorer.bmp" />
+    <Image Include="res\explorer_hc.ico" />
     <Image Include="res\FernflowerUI_MFC.ico" />
     <Image Include="res\FernflowerUI_MFCDoc.ico" />
+    <Image Include="res\FernflowerUI_MFC_Backup.ico" />
+    <Image Include="res\file_view.ico" />
+    <Image Include="res\file_view_hc.ico" />
+    <Image Include="res\icon2.ico" />
     <Image Include="res\output_wnd.ico" />
     <Image Include="res\output_wnd_hc.ico" />
+    <Image Include="res\sort.bmp" />
+    <Image Include="res\sort_hc.bmp" />
     <Image Include="res\Toolbar.bmp" />
     <Image Include="res\Toolbar256.bmp" />
     <Image Include="res\userimages.bmp" />

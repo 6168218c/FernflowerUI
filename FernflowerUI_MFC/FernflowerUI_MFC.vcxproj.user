@@ -3,4 +3,9 @@
   <PropertyGroup>
     <RESOURCE_FILE>FernflowerUIMFC.rc</RESOURCE_FILE>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LocalDebuggerCommandArguments>
+    </LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
 </Project>

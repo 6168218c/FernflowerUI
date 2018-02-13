@@ -39,10 +39,22 @@
     <ClInclude Include="OutputWnd.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="zconf.h">
+    <ClInclude Include="ViewTree.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="zlib.h">
+    <ClInclude Include="ClassView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="unzip.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ShellTreeView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FileView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonWrapper.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -63,6 +75,24 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="OutputWnd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="unzip.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ShellTreeView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FileView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CommonWrapper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,6 +131,42 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\Toolbar256.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\classview.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\classview_hc.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\FernflowerUI_MFC_Backup.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\sort.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\sort_hc.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\class_view.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\class_view_hc.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\explorer.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\explorer_hc.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\icon2.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\file_view.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\file_view_hc.ico">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>
