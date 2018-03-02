@@ -2,8 +2,8 @@
 #include "CommonWrapper.h"
 using namespace CommonWrapper;
 
-CWaitDlg::CWaitDlg(CWnd * MainWnd, std::function<bool()> c, DWORD Sec, const wchar_t * Text, DWORD MarSec,UINT nIDTemplate)
-	:Condit(c), CDialogEx(nIDTemplate, MainWnd), WaitSeconds(Sec), StaticText(Text),MarqueeSecond(MarSec)
+CWaitDlg::CWaitDlg(CWnd * MainWnd, std::function<bool()> c, DWORD Sec, const wchar_t * Text, DWORD MarSec,UINT nIDTemplate,bool EnableParent)
+	:Condit(c), CDialogEx(nIDTemplate, MainWnd), WaitSeconds(Sec), StaticText(Text),MarqueeSecond(MarSec),bEnableParent(EnableParent)
 {
 	WaitSeconds = (WaitSeconds == 0) ? 1 : WaitSeconds;
 	MarqueeSecond = (MarqueeSecond == 0) ? 20 : MarqueeSecond;
@@ -12,6 +12,7 @@ CWaitDlg::CWaitDlg(CWnd * MainWnd, std::function<bool()> c, DWORD Sec, const wch
 LRESULT CWaitDlg::OnInitDialog(WPARAM wParam, LPARAM lParam)
 {
 	LRESULT bRet = HandleInitDialog(wParam, lParam);
+	m_pParentWnd->EnableWindow(bEnableParent);
 	SetTimer(ID_TIMER_DOPROGRESS, WaitSeconds, nullptr);
 	m_wndProgressBar = static_cast<CProgressCtrl*>(GetDlgItem(IDC_PROGRESS1));
 	if (m_wndProgressBar != nullptr)

@@ -73,13 +73,15 @@ int CClassView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	rectDummy.SetRectEmpty();
 
 	// 创建视图: 
-	const DWORD dwViewStyle = WS_CHILD | WS_VISIBLE | TVS_HASLINES | TVS_LINESATROOT | TVS_HASBUTTONS | TVS_SHOWSELALWAYS | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
+	const DWORD dwViewStyle = WS_CHILD | WS_VISIBLE | TVS_LINESATROOT | TVS_HASBUTTONS | TVS_SHOWSELALWAYS | TVS_TRACKSELECT | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
 
 	if (!m_wndClassView.Create(dwViewStyle, rectDummy, this, 2))
 	{
 		TRACE0("未能创建类视图\n");
 		return -1;      // 未能创建
 	}
+	m_wndClassView.SetExtendedStyle(0, TVS_EX_DOUBLEBUFFER);
+	SetWindowTheme(m_wndClassView.m_hWnd, _T("Explorer"), nullptr);
 
 	// 加载图像: 
 	m_wndToolBar.Create(this, AFX_DEFAULT_TOOLBAR_STYLE, IDR_SORT);

@@ -23,6 +23,7 @@ CViewTree::~CViewTree()
 
 BEGIN_MESSAGE_MAP(CViewTree, CTreeCtrl)
 	ON_NOTIFY_REFLECT(TVN_SELCHANGED, &CViewTree::OnTvnSelchanged)
+	ON_NOTIFY_REFLECT(NM_DBLCLK, &CViewTree::OnNMDblclk)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -58,6 +59,8 @@ void CViewTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 			std::stack<CStringW> StringStack;
 			HTREEITEM hItem = pNMTreeView->itemNew.hItem;
 			CStringW JavaPath;
+			CStringW FileName = GetItemText(hItem);
+			FileName += L".java";
 			char * UserProFile;
 			size_t size;
 			if (_dupenv_s(&UserProFile,&size,"USERPROFILE"))
@@ -78,7 +81,7 @@ void CViewTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 				JavaPath += StringStack.top();
 				StringStack.pop();
 			}
-			CStdioFile File;
+			CFile File;
 			File.Open(JavaPath, CStdioFile::modeNoTruncate | CStdioFile::modeRead | CStdioFile::shareDenyRead);
 			size_t Len = File.GetLength();
 			char * buf = new char[Len + 1];
@@ -86,11 +89,12 @@ void CViewTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 			File.Read(buf, Len);
 			for (size_t i = 0; i < Len; i++)
 			{
-				if (buf[i]==L'\0')
+				if (buf[i]=='\0')
 				{
-					buf[i] = L' ';
+					buf[i] = ' ';
 				}
 			}
+			buf[Len] = '\0';
 			CStringW Contact;
 			Contact = buf;
 			delete buf;
@@ -101,20 +105,102 @@ void CViewTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 				Contact += (buf + L"\r\n");
 			}*/
 			Contact.Replace(L"   ", L"        ");
-			static_cast<CFernflowerUIMFCView*>(static_cast<CFrameWnd*>(AfxGetMainWnd())->GetActiveView())->FinishHighLight = false;
-			std::future<void> SetHighLight = std::async([](const CStringW & Str,CWnd * MainWnd) {
-				static_cast<CFernflowerUIMFCView*>(static_cast<CFrameWnd*>(MainWnd)->GetActiveView())->SetViewText(Str);
+			if (CommonWrapper::GetMainFrame()->m_MDIChildWndMap.count(JavaPath)==1)
+			{
+				CommonWrapper::GetMainFrame()->m_MDIChildWndMap[JavaPath]->MDIActivate();
+				return;
+			}
+			CMDIChildWndEx * MDIChild = CommonWrapper::GetMainFrame()->CreateDocumentWindow(FileName);
+			ASSERT(MDIChild != nullptr);
+			CommonWrapper::GetMainFrame()->m_MDIChildWndMap[JavaPath] = MDIChild;
+			MDIChild->MDIActivate();
+			CFernflowerUIMFCView * pView = static_cast<CFernflowerUIMFCView*>(CommonWrapper::GetMainFrame()->MDIGetActive()->GetActiveView());
+			pView->FinishHighLight = false;
+			std::future<void> SetHighLight = std::async([&](const CStringW & Str,CWnd * MainWnd) {
+				pView->SetViewText(Str);
 			}, Contact,AfxGetMainWnd());
 			/*CommonWrapper::CWaitDlg Wait(AfxGetMainWnd(),
 				[]()->bool {AfxGetMainWnd()->RestoreWaitCursor(); return static_cast<CFernflowerUIMFCView*>(static_cast<CFrameWnd*>(AfxGetMainWnd())->GetActiveView())->FinishHighLight; },
 				5, L"正在打开文件");
 			Wait.DoModal();*/
 			CommonWrapper::CProgressBar Progress(AfxGetMainWnd(),
-				[]()->int {AfxGetMainWnd()->RestoreWaitCursor(); return static_cast<CFernflowerUIMFCView*>(static_cast<CFrameWnd*>(AfxGetMainWnd())->GetActiveView())->FinishHighLight; },
+				[&]()->int {AfxGetMainWnd()->RestoreWaitCursor(); return pView->FinishHighLight; },
+				5, L"正在打开文件", 0, 77);
+			Progress.DoModal();
+			AfxGetMainWnd()->EndWaitCursor();
+			CommonWrapper::GetMainFrame()->SetWindowText(FileName + _T(" - FernFlowerUI"));
+		}
+	}
+	*pResult = 0;
+}
+
+
+void CViewTree::OnNMDblclk(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	/*// TODO: 在此添加控件通知处理程序代码
+	HTREEITEM hItem = this->GetSelectedItem();
+	int ImgIndex, SelectedImgIndex;
+	if (this->GetItemImage(hItem, ImgIndex, SelectedImgIndex))
+	{
+		if (ImgIndex == 1)
+		{
+			AfxGetMainWnd()->BeginWaitCursor();
+			std::stack<CStringW> StringStack;
+			CStringW JavaPath;
+			CStringW FileName = GetItemText(hItem);
+			FileName += L".java";
+			char * UserProFile;
+			size_t size;
+			if (_dupenv_s(&UserProFile, &size, "USERPROFILE"))
+			{
+				AfxGetMainWnd()->MessageBox(L"搜索%USERPROFILE%失败!", L"错误", MB_ICONERROR);
+				return;
+			}
+			JavaPath = UserProFile;
+			JavaPath += L"\\AppData\\Local\\FernFlowerUI\\JarCache\\";
+			free(UserProFile);
+			StringStack.push(GetItemText(hItem) + L".java");
+			while (hItem = GetParentItem(hItem))
+			{
+				StringStack.push(GetItemText(hItem) + L"\\");
+			}
+			while (!StringStack.empty())
+			{
+				JavaPath += StringStack.top();
+				StringStack.pop();
+			}
+			CFile File;
+			File.Open(JavaPath, CStdioFile::modeNoTruncate | CStdioFile::modeRead | CStdioFile::shareDenyRead);
+			size_t Len = File.GetLength();
+			char * buf = new char[Len + 1];
+			memset(buf, 0, Len + 1);
+			File.Read(buf, Len);
+			for (size_t i = 0; i < Len; i++)
+			{
+				if (buf[i] == '\0')
+				{
+					buf[i] = ' ';
+				}
+			}
+			buf[Len] = '\0';
+			CStringW Contact;
+			Contact = buf;
+			delete buf;
+			Contact.Replace(L"   ", L"        ");
+			CMDIChildWndEx * MDIChild = CommonWrapper::GetMainFrame()->CreateDocumentWindow(FileName);
+			ASSERT(MDIChild != nullptr);
+			MDIChild->MDIActivate();
+			CFernflowerUIMFCView * pView = static_cast<CFernflowerUIMFCView*>(CommonWrapper::GetMainFrame()->MDIGetActive()->GetActiveView());
+			pView->FinishHighLight = false;
+			std::future<void> SetHighLight = std::async([&](const CStringW & Str, CWnd * MainWnd) {
+				pView->SetViewText(Str);
+			}, Contact, AfxGetMainWnd());
+			CommonWrapper::CProgressBar Progress(AfxGetMainWnd(),
+				[&]()->int {AfxGetMainWnd()->RestoreWaitCursor(); return pView->FinishHighLight; },
 				5, L"正在打开文件", 0, 77);
 			Progress.DoModal();
 			AfxGetMainWnd()->EndWaitCursor();
 		}
-	}
+	}*/
 	*pResult = 0;
 }

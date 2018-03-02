@@ -9,7 +9,7 @@ namespace CommonWrapper
 	class CWaitDlg : public CDialogEx
 	{
 	public:
-		CWaitDlg(CWnd * MainWnd, std::function<bool()> c, DWORD Sec, const wchar_t * Text, DWORD MarSec = 20, UINT nIDTemplate = IDD_WAITBAR);
+		CWaitDlg(CWnd * MainWnd, std::function<bool()> c, DWORD Sec, const wchar_t * Text, DWORD MarSec = 20, UINT nIDTemplate = IDD_WAITBAR, bool EnableParent = false);
 		afx_msg LRESULT OnInitDialog(WPARAM, LPARAM);
 		void OnShowWindow(BOOL bShow, UINT nStatus);
 		afx_msg void DoProgress();
@@ -28,6 +28,7 @@ namespace CommonWrapper
 		std::function<bool()> Condit;
 		bool WithoutSleep;
 		bool bFlag;
+		bool bEnableParent;
 		DWORD WaitSeconds;
 		DWORD MarqueeSecond;
 		CStatic * m_pStaticText;
