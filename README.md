@@ -3,6 +3,10 @@
 
 ### 3.2 Update
 
+#### This is how FernflowerUI like (In the image,we decomplied iChunUtil,please visit https://github.com/iChun/iChunUtil as respect):
+
+![Image text](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/FernflowerUI3.2.jpg)
+
 Now we enabled the feature of multi-instances again.It means that you can run multiple FernflowerUI(s) at the same time and decomplie multiple .jar files at the same time.
 And the .jar files you decomplied will be stored in the cache in the %LocalAppdata%\FernflowerUI\Cache folder.If you decomplie the same file(or its copy) again,it won't start a new process to decomplie.
 Instead,the application will read from the cache.It can greatly decrease the time used to decomplie.
