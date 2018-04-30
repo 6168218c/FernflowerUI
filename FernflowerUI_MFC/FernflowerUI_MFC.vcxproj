@@ -289,6 +289,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="unzip.h" />
     <ClInclude Include="ViewTree.h" />
+    <ClInclude Include="zip.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChildFrm.cpp" />
@@ -311,6 +312,7 @@
     </ClCompile>
     <ClCompile Include="unzip.cpp" />
     <ClCompile Include="ViewTree.cpp" />
+    <ClCompile Include="zip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FernflowerUI_MFC.reg" />
@@ -334,6 +336,7 @@
     <Image Include="res\file_view.ico" />
     <Image Include="res\file_view_hc.ico" />
     <Image Include="res\icon2.ico" />
+    <Image Include="res\menuimages.bmp" />
     <Image Include="res\menuimages_hc.bmp" />
     <Image Include="res\output_wnd.ico" />
     <Image Include="res\output_wnd_hc.ico" />

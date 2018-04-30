@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FernflowerUI_MFC", "FernflowerUI_MFC\FernflowerUI_MFC.vcxproj", "{12C337DD-04ED-41ED-A6BF-632A66FF9E39}"
 EndProject
@@ -11,6 +11,8 @@ Global
 		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
+		ReleaseWithDLL|x64 = ReleaseWithDLL|x64
+		ReleaseWithDLL|x86 = ReleaseWithDLL|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{12C337DD-04ED-41ED-A6BF-632A66FF9E39}.Debug|x64.ActiveCfg = Debug|x64
@@ -21,6 +23,10 @@ Global
 		{12C337DD-04ED-41ED-A6BF-632A66FF9E39}.Release|x64.Build.0 = Release|x64
 		{12C337DD-04ED-41ED-A6BF-632A66FF9E39}.Release|x86.ActiveCfg = Release|Win32
 		{12C337DD-04ED-41ED-A6BF-632A66FF9E39}.Release|x86.Build.0 = Release|Win32
+		{12C337DD-04ED-41ED-A6BF-632A66FF9E39}.ReleaseWithDLL|x64.ActiveCfg = ReleaseWithDLL|x64
+		{12C337DD-04ED-41ED-A6BF-632A66FF9E39}.ReleaseWithDLL|x64.Build.0 = ReleaseWithDLL|x64
+		{12C337DD-04ED-41ED-A6BF-632A66FF9E39}.ReleaseWithDLL|x86.ActiveCfg = ReleaseWithDLL|Win32
+		{12C337DD-04ED-41ED-A6BF-632A66FF9E39}.ReleaseWithDLL|x86.Build.0 = ReleaseWithDLL|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -60,6 +60,9 @@
     <ClInclude Include="ChildFrm.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="zip.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FernflowerUI_MFC.cpp">
@@ -99,6 +102,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ChildFrm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="zip.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -179,6 +185,9 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\menuimages_hc.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\menuimages.bmp">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>
