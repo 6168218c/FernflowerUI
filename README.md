@@ -20,4 +20,4 @@ And it won't show as something garbled because of ANSI and UTF-8
 
 修复:我们修复了一些关于语法高亮的bug,现在字符串中的“@”将不会被高亮为注释。不会因为ANSI和UTF-8而显示乱码。
 
-## Besides,we have released on [Baidu Tieba](https://tieba.baidu.com/p/5357968894?pid=113035827659&cid=0&red_tag=1675627321#113035827659) and [McBBS](http://www.mcbbs.net/forum.php?mod=viewthread&tid=773809&page=1#pid12656797) in China.
+## Besides,we have released on [McBBS](http://www.mcbbs.net/forum.php?mod=viewthread&tid=773809&page=1#pid12656797) in China.
