@@ -15,8 +15,9 @@ Instead,the application will read from the cache.It can greatly decrease the tim
 这些反编译后的Jar文件会在%LocalAppdata%\FernflowerUI\Cache这一文件夹中。如果你再次反编译这个文件（或它的副本）,
 FernflowerUI将会从缓存中读取数据。这可以极大地减少反编译时间。
 
-Fixed:We've fixed some bugs of Syntax HighLight.Now the character "@" inside the string won't be highlighted as annotation
-.
-修复:我们修复了一些关于语法高亮的bug,现在字符串中的“@”将不会被高亮为注释。
+Fixed:We've fixed some bugs of Syntax HighLight.Now the character "@" inside the string won't be highlighted as annotation.
+And it won't show as something garbled because of ANSI and UTF-8
+
+修复:我们修复了一些关于语法高亮的bug,现在字符串中的“@”将不会被高亮为注释。不会因为ANSI和UTF-8而显示乱码。
 
 ## Besides,we have released on [Baidu Tieba](https://tieba.baidu.com/p/5357968894?pid=113035827659&cid=0&red_tag=1675627321#113035827659) and [McBBS](http://www.mcbbs.net/forum.php?mod=viewthread&tid=773809&page=1#pid12656797) in China.
