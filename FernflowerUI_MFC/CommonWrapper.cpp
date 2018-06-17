@@ -40,6 +40,7 @@ LRESULT CWaitDlg::OnInitDialog(WPARAM wParam, LPARAM lParam)
 
 void CWaitDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 {
+	theApp.RunningDialog = this;
 	CDialogEx::OnShowWindow(bShow, nStatus);
 	PostMessage(WM_COMMAND, ID_DOPROGRESS);
 }
@@ -55,6 +56,7 @@ void CWaitDlg::DoProgress()
 	{
 		static_cast<CMainFrame*>(CDialogEx::GetParent())->GetStatusBar()->SetPaneText(ID_SEPARATOR, L"¾ÍÐ÷");
 	}
+	theApp.RunningDialog = nullptr;
 	EndDialog(true);
 }
 
@@ -111,6 +113,7 @@ LRESULT CProgressBar::OnInitDialog(WPARAM wParam, LPARAM lParam)
 
 void CProgressBar::OnShowWindow(BOOL bShow, UINT nStatus)
 {
+	theApp.RunningDialog = this;
 	CDialogEx::OnShowWindow(bShow, nStatus);
 	PostMessage(WM_COMMAND, ID_DOPROGRESS);
 }
@@ -124,6 +127,7 @@ void CProgressBar::DoProgress()
 	}
 	KillTimer(ID_TIMER_DOPROGRESS);
 	static_cast<CMainFrame*>(CDialogEx::GetParent())->GetStatusBar()->SetPaneText(ID_SEPARATOR, L"¾ÍÐ÷");
+	theApp.RunningDialog = nullptr;
 	EndDialog(true);
 }
 

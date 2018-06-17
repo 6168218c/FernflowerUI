@@ -88,3 +88,8 @@ namespace CommonWrapper
 		CFont m_Font;
 	};
 }
+
+inline bool IsInChinese()
+{
+	return theApp.Language == CFernflowerUIMFCApp::AppLanguage::Chinese;
+}

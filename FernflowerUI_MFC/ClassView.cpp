@@ -5,6 +5,7 @@
 #include "Resource.h"
 #include "FernFlowerUI_MFC.h"
 #include "FernflowerUI_MFCView.h"
+#include "CommonWrapper.h"
 
 class CClassViewMenuButton : public CMFCToolBarMenuButton
 {
@@ -272,7 +273,45 @@ void CClassView::OnClassProperties()
 
 void CClassView::OnNewFolder()
 {
-	AfxMessageBox(_T("新建文件夹..."));
+	//AfxMessageBox(_T("新建文件夹..."));
+	int ImgIndex, SelectedImgIndex;
+	if (m_wndClassView.GetItemImage(m_wndClassView.GetSelectedItem(), ImgIndex, SelectedImgIndex))
+	{
+		CStringW AddStr;
+		if (ImgIndex == 1)
+		{
+			AddStr = L".java";
+		}
+		CStringW Path;
+		std::stack<CStringW> StringStack;
+		char * UserProFile;
+		size_t size;
+		if (_dupenv_s(&UserProFile, &size, "USERPROFILE"))
+		{
+			AfxGetMainWnd()->MessageBox(IsInChinese() ? _T("搜索%USERPROFILE%失败!") : _T("Failed to access %USERPROFILE%"), IsInChinese() ? _T("错误") : _T("Error"), MB_ICONERROR);
+			return;
+		}
+		Path = UserProFile;
+		Path += "\\AppData\\Local\\FernFlowerUI\\Cache\\";
+		Path += theApp.Md5ofFile;
+		Path += "\\JarCache\\";
+		free(UserProFile);
+		HTREEITEM hItem = m_wndClassView.GetSelectedItem();
+		StringStack.push(m_wndClassView.GetItemText(hItem) + AddStr);
+		while (hItem = m_wndClassView.GetParentItem(hItem))
+		{
+			StringStack.push(m_wndClassView.GetItemText(hItem) + L"\\");
+		}
+		while (!StringStack.empty())
+		{
+			Path += StringStack.top();
+			StringStack.pop();
+		}
+		CStringA Cmd = "cmd /c explorer /select,\"";
+		Cmd += Path;
+		Cmd += "\"";
+		WinExec(Cmd, SW_HIDE);
+	}
 }
 
 void CClassView::OnPaint()

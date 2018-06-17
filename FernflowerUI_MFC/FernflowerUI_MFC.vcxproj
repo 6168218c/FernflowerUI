@@ -204,6 +204,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions);ZLIB_WINAPI</PreprocessorDefinitions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -256,6 +257,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_WINDOWS;NDEBUG;%(PreprocessorDefinitions);ZLIB_WINAPI</PreprocessorDefinitions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -282,6 +284,8 @@
     <ClInclude Include="FernflowerUI_MFCView.h" />
     <ClInclude Include="FileView.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="Md5Checksum.h" />
+    <ClInclude Include="Md5ChecksumDefs.h" />
     <ClInclude Include="OutputWnd.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ShellTreeView.h" />
@@ -300,6 +304,7 @@
     <ClCompile Include="FernflowerUI_MFCView.cpp" />
     <ClCompile Include="FileView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="Md5Checksum.cpp" />
     <ClCompile Include="OutputWnd.cpp" />
     <ClCompile Include="ShellTreeView.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -324,6 +329,8 @@
     <ResourceCompile Include="FernflowerUIMFC.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\ .bmp" />
+    <Image Include="res\ info.bmp" />
     <Image Include="res\classview.bmp" />
     <Image Include="res\classview_hc.bmp" />
     <Image Include="res\class_view.ico" />
@@ -336,6 +343,7 @@
     <Image Include="res\file_view.ico" />
     <Image Include="res\file_view_hc.ico" />
     <Image Include="res\icon2.ico" />
+    <Image Include="res\info.bmp" />
     <Image Include="res\menuimages.bmp" />
     <Image Include="res\menuimages_hc.bmp" />
     <Image Include="res\output_wnd.ico" />

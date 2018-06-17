@@ -63,6 +63,12 @@
     <ClInclude Include="zip.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Md5Checksum.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Md5ChecksumDefs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FernflowerUI_MFC.cpp">
@@ -105,6 +111,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="zip.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Md5Checksum.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -188,6 +197,15 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\menuimages.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\info.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\ .bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\ info.bmp">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>
