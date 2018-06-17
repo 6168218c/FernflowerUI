@@ -25,12 +25,16 @@ The other opinion helps you to clear the decomplie cache that is stored in %Loca
 It can be useful when you don't want to delete the cache manually using Windows Explorer.
 
 When you are viewing the decomplied Java Source file,you will see the line number in the left of the richedit window.
+You can also press Ctrl+S to save the current (Active) Java Source file.
 
 
 现在我们增加了字体选择功能。你可以在"设置"菜单中选择你喜爱的字体。默认字体是微软雅黑。但你只可以选择字体样式和字体大小（因为语法高亮会改变一些字体格式，因此我们只提供了这两个功能而避免使语法高亮太糟糕）
+
 像上面提到的那样，我们增加了一些选项：快速反编译和清除缓存。如果你勾选“快速反编译”，fernflower.jar在反编译时会使用多核反编译，导致CPU占用率接近100%，但反编译速度会变快不少。
+
 另外一个选项是"清除缓存"，这个选项帮助你清除%LocalAppdata%\FernflowerUI里的用来提升反编译速度的缓存。懒人党（比如开发者）专属。
-我们还实现了代码前行数的功能。
+
+我们还实现了代码前行数的功能。在查看代码时，可以按Ctrl+S以保存当前阅览（活动的）的Java文件
 
 Fixed:
 If you have installed JRE but haven't set JAVA_HOME yet,now FernflowerUI won't warn that JRE hasn't been installed.The condition is that you can run "java -version" through CMD.
