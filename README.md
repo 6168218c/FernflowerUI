@@ -4,6 +4,7 @@
 ### 3.3 Update
 
 #### English Support
+##### Thanks to @lokha for advice.
 
 We have already implemented multi-language(in fact,only two languages are available,which are English(en-US) and Chinese(zh-CN)) feature.
 But the application didn't provide the feature to toggle the language.The language is based on your Windows' UI language.
@@ -37,6 +38,6 @@ If you set “Hide the name of the known file extension" in your Folder Options 
 
 修复:
 如果你已经安装了JRE但没有设置JAVA_HOME，FernflowerUI现在不会提示”检测到JRE未安装“。条件是在CMD中可以运行"java -version"。
-当电脑中设置"隐藏文件扩展名"时，FernflowerUI现在可以正常显示类视图及反编译后的Java文件
+当电脑中设置"隐藏文件扩展名"时，FernflowerUI现在可以正常显示类视图及反编译后的Java文件。
 
 ## Besides,we have released on [McBBS](http://www.mcbbs.net/forum.php?mod=viewthread&tid=773809&page=1#pid12656797) in China.
