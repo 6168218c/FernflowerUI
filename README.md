@@ -21,7 +21,7 @@ But what you can choose is only the font face and the font size.(Because the Syn
 As metioned above,we have added some opinions:Quick decomplie and Clear cache.If you enable "Quick decomplie",when FernflowerUI is decompling using fernflower.jar,JRE will launch more than 2 threads to run the Jar.
 The CPU utilization will be almost 100%,while the decomplie speed is increased.If you disable it, JRE will only use one CPU to decomplie.
 
-The other opinion helps you to clear the decomplie cache that is stored in %LocalAppdata%\FernflowerUI (which is the same as %UserProFile%\Appdata\Local\FernflowerUI) to make FernflowerUI just read from the cache the next time you decomplie the same Jar file.
+The other opinion helps you to clear the decomplie cache that is stored in %LocalAppdata%\FernflowerUI (which is the same as %UserProFile%\Appdata\Local\FernflowerUI) to make FernflowerUI just read from the cache the next time you decomplie the same Jar file.FernflowerUI will begin clearing when all of the instances of the application are closed.
 It can be useful when you don't want to delete the cache manually using Windows Explorer.
 
 When you are viewing the decomplied Java Source file,you will see the line number in the left of the richedit window.
@@ -32,7 +32,7 @@ You can also press Ctrl+S to save the current (Active) Java Source file.
 
 像上面提到的那样，我们增加了一些选项：快速反编译和清除缓存。如果你勾选“快速反编译”，fernflower.jar在反编译时会使用多核反编译，导致CPU占用率接近100%，但反编译速度会变快不少。
 
-另外一个选项是"清除缓存"，这个选项帮助你清除%LocalAppdata%\FernflowerUI里的用来提升反编译速度的缓存。懒人党（比如开发者）专属。
+另外一个选项是"清除缓存"，这个选项帮助你清除%LocalAppdata%\FernflowerUI里的用来提升反编译速度的缓存。仅当所有FernflowerUI实例关闭后才会开始清除缓存。懒人党（比如开发者）专属。
 
 我们还实现了代码前行数的功能。在查看代码时，可以按Ctrl+S以保存当前阅览（活动的）的Java文件
 
