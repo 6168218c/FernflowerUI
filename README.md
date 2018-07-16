@@ -3,8 +3,8 @@
 
 ### 3.3 Update
 
-#### English Support
-##### Thanks to @lokha for advice.
+### English Support
+#### Thanks to @lokha for advice.
 
 We have already implemented multi-language(in fact,only two languages are available,which are English(en-US) and Chinese(zh-CN)) feature.
 But the application didn't provide the feature to toggle the language.The language is based on your Windows' UI language.
@@ -32,7 +32,7 @@ You can also press Ctrl+S to save the current (Active) Java Source file.
 
 像上面提到的那样，我们增加了一些选项：快速反编译和清除缓存。如果你勾选“快速反编译”，fernflower.jar在反编译时会使用多核反编译，导致CPU占用率接近100%，但反编译速度会变快不少。
 
-另外一个选项是"清除缓存"，这个选项帮助你清除%LocalAppdata%\FernflowerUI里的用来提升反编译速度的缓存。仅当所有FernflowerUI实例关闭后才会开始清除缓存。懒人党（比如开发者）专属。
+另外一个选项是"清除缓存"，这个选项帮助你清除%LocalAppdata%\FernflowerUI里的用来提升反编译速度的缓存。仅当所有FernflowerUI实例关闭后才会开始清除缓存。懒人党（比如该项目开发人）专属。
 
 我们还实现了代码前行数的功能。在查看代码时，可以按Ctrl+S以保存当前阅览（活动的）的Java文件
 
@@ -44,4 +44,4 @@ If you set “Hide the name of the known file extension" in your Folder Options 
 如果你已经安装了JRE但没有设置JAVA_HOME，FernflowerUI现在不会提示”检测到JRE未安装“。条件是在CMD中可以运行"java -version"。
 当电脑中设置"隐藏文件扩展名"时，FernflowerUI现在可以正常显示类视图及反编译后的Java文件。
 
-## Besides,we have released on [McBBS](http://www.mcbbs.net/forum.php?mod=viewthread&tid=773809&page=1#pid12656797) in China.
+## 另外,我们还在[McBBS](http://www.mcbbs.net/forum.php?mod=viewthread&tid=773809&page=1#pid12656797)上发布了这个项目。
