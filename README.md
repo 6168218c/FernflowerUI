@@ -10,7 +10,7 @@ We have already implemented multi-language(in fact,only two languages are availa
 But the application didn't provide the feature to toggle the language.The language is based on your Windows' UI language.
 And, as you can see,we are not native English speakers,so please help us find out the grammer mistakes within the application.
 
-#### This is how FernflowerUI like (when your Windows' UI language is not Chinese) 
+#### This is what FernflowerUI is like (when your Windows' UI language is not Chinese) 
 (In the image,we decomplied iChunUtil,please visit https://github.com/iChun/iChunUtil as respect):
 
 ![Using Image](https://raw.githubusercontent.com/6168218c/FernflowerUI/master/FernflowerUI_MFC/UsingImages/FernflowerUI3.3.jpg)
