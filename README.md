@@ -1,5 +1,5 @@
 ﻿# FernflowerUI
-## Just a Java Decomplier with GUI and Decomplie Core called Fernflower
+## Just a Java Decompiler with GUI and Decompile Core called Fernflower
 
 ### 3.3 Update
 
@@ -11,20 +11,20 @@ But the application didn't provide the feature to toggle the language.The langua
 And, as you can see,we are not native English speakers,so please help us find out the grammer mistakes within the application.
 
 #### This is what FernflowerUI is like (when your Windows' UI language is not Chinese) 
-(In the image,we decomplied iChunUtil,please visit https://github.com/iChun/iChunUtil as respect):
+(In the image,we decompiled iChunUtil,please visit https://github.com/iChun/iChunUtil as respect):
 
 ![Image text](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/FernflowerUI3.3.jpg)
 
 Now we've added the Font Choosing feature.You can choose the font you like in the "Settings" menu.The default Font is "Microsoft YaHei UI".
 But what you can choose is only the font face and the font size.(Because the Syntax Highlight will make Java key word bold while making operators red, so we only enabled these two to avoid making Syntax Highlight terrible)
 
-As metioned above,we have added some opinions:Quick decomplie and Clear cache.If you enable "Quick decomplie",when FernflowerUI is decompling using fernflower.jar,JRE will launch more than 2 threads to run the Jar.
-The CPU utilization will be almost 100%,while the decomplie speed is increased.If you disable it, JRE will only use one CPU to decomplie.
+As metioned above,we have added some opinions:Quick decompile and Clear cache.If you enable "Quick decompile",when FernflowerUI is decompling using fernflower.jar,JRE will launch more than 2 threads to run the Jar.
+The CPU utilization will be almost 100%,while the decompile speed is increased.If you disable it, JRE will only use one CPU to decompile.
 
-The other opinion helps you to clear the decomplie cache that is stored in %LocalAppdata%\FernflowerUI (which is the same as %UserProFile%\Appdata\Local\FernflowerUI) to make FernflowerUI just read from the cache the next time you decomplie the same Jar file.FernflowerUI will begin clearing when all of the instances of the application are closed.
+The other opinion helps you to clear the decompile cache that is stored in %LocalAppdata%\FernflowerUI (which is the same as %UserProFile%\Appdata\Local\FernflowerUI) to make FernflowerUI just read from the cache the next time you decompile the same Jar file.FernflowerUI will begin clearing when all of the instances of the application are closed.
 It can be useful when you don't want to delete the cache manually using Windows Explorer.
 
-When you are viewing the decomplied Java Source file,you will see the line number in the left of the richedit window.
+When you are viewing the decompiled Java Source file,you will see the line number in the left of the richedit window.
 You can also press Ctrl+S to save the current (Active) Java Source file.
 
 
