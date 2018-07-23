@@ -1,7 +1,10 @@
 ﻿# FernflowerUI
 ## Just a Java Decompiler with GUI and Decompile Core called Fernflower
 
-### 3.3 Update
+### Download Link:https://github.com/6168218c/FernflowerUI/releases/latest
+### 下载链接:https://github.com/6168218c/FernflowerUI/releases/latest
+
+### *3.3 Update*
 
 ### English Support
 #### Thanks to @lokha for advice.
@@ -13,7 +16,7 @@ And, as you can see,we are not native English speakers,so please help us find ou
 #### This is what FernflowerUI is like (when your Windows' UI language is not Chinese) 
 (In the image,we decompiled iChunUtil,please visit https://github.com/iChun/iChunUtil as respect):
 
-![Using Image](https://raw.githubusercontent.com/6168218c/FernflowerUI/master/FernflowerUI_MFC/UsingImages/FernflowerUI3.3.jpg)
+![Image text](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/FernflowerUI3.3.jpg)
 
 Now we've added the Font Choosing feature.You can choose the font you like in the "Settings" menu.The default Font is "Microsoft YaHei UI".
 But what you can choose is only the font face and the font size.(Because the Syntax Highlight will make Java key word bold while making operators red, so we only enabled these two to avoid making Syntax Highlight terrible)
