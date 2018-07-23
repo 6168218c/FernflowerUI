@@ -47,4 +47,4 @@ If you set “Hide the name of the known file extension" in your Folder Options 
 如果你已经安装了JRE但没有设置JAVA_HOME，FernflowerUI现在不会提示”检测到JRE未安装“。条件是在CMD中可以运行"java -version"。
 当电脑中设置"隐藏文件扩展名"时，FernflowerUI现在可以正常显示类视图及反编译后的Java文件。
 
-## 另外,我们还在[McBBS](http://www.mcbbs.net/forum.php?mod=viewthread&tid=773809&page=1#pid12656797)上发布了这个项目。
+## 另外,我们还在[McBBS](http://www.mcbbs.net/thread-773809-1-1.html)上发布了这个项目。
