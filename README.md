@@ -11,7 +11,9 @@
 #### This is what FernflowerUI is like (when your Windows' UI language is not Chinese) 
 (In the image,we decompiled iChunUtil,please visit https://github.com/iChun/iChunUtil as respect):
 
-![Image text](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/FernflowerUI3.4.jpg)
+![Image text](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/FernflowerUI3.4.jpg)
+
+### If you like the project and want to make contributions,introducing this project to others is enough:grinning:!
 
 Now we've added the feature of finding a specific word in the .java file. Press Ctrl+F if you have opened a .java file , and the find dialog will be shown , allowing you find words in the current Java file.
 
