@@ -28,10 +28,12 @@ Some small adjustments aren't metioned.
 
 Fixed:
 Now the application will check the existance of Java Runtime Environment asynchronously.
+
 Improved the speed of the File View.
 
 修复:
 现在该程序会异步检测Java运行环境的存在。
+
 提升了文件视图的速度。
 
 #### P.S.: I forgot to save the source code of version 3.4,so the source code above belongs to test version of 3.4.1.
