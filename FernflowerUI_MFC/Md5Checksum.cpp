@@ -17,7 +17,7 @@ CString CMD5Checksum::GetMD5(const CString& strFilePath)
 	try
 	{
 		CFile file;
-		if (file.Open(strFilePath, CFile::modeRead) == 0)
+		if (file.Open(strFilePath, CFile::modeRead | CFile::shareDenyWrite) == 0)
 			return _T("");
 
 		CMD5Checksum MD5Checksum;   //checksum object 

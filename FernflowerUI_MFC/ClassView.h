@@ -2,6 +2,7 @@
 #pragma once
 
 #include "ViewTree.h"
+#include "stdafx.h"
 
 class CClassToolBar : public CMFCToolBar
 {
@@ -26,15 +27,28 @@ public:
 	void ClearAll()
 	{
 		m_wndClassView.DeleteAllItems();
+		m_mapWordRange.clear();
 	}
+
+	std::map<HTREEITEM, CHARRANGE> m_mapWordRange;
 
 protected:
 	CClassToolBar m_wndToolBar;
 	CViewTree m_wndClassView;
+	CStatic   m_wndStaticText;
+	CFont     m_TextFont;
 	CImageList m_ClassViewImages;
 	UINT m_nCurrSort;
 
 	void FillClassView();
+	void ParseClasses(CString FilePath, HTREEITEM hParentItem);
+	void ParseInnerClass(CString Content, HTREEITEM hParentItem, int nOffset);
+	bool isspace(_In_ TCHAR Ch)
+	{
+		return (Ch == _T(' ')) || (Ch == _T('\r')) || (Ch == _T('\n')) || (Ch == _T('\t'));
+	}
+
+	//std::vector<CString> m_vecTypeName = { L"boolean" ,L"byte" ,L"char",L"double",L"int",L"long",L"short",L"void" };
 
 	CStringW GetShortName(const CStringW & Str)
 	{

@@ -30,7 +30,7 @@ LRESULT CWaitDlg::OnInitDialog(WPARAM wParam, LPARAM lParam)
 	{
 		static_cast<CMainFrame*>(CDialogEx::GetParent())->GetStatusBar()->SetPaneText(ID_SEPARATOR, L"正在执行操作");
 	}
-	if (m_Font.CreatePointFont(120, L"微软雅黑"))
+	if (m_Font.CreatePointFont(120, L"Microsoft YaHei"))
 	{
 		if(static_cast<CStatic*>(GetDlgItem(IDC_GROUPTITLE))!=nullptr)
 			static_cast<CStatic*>(GetDlgItem(IDC_GROUPTITLE))->SetFont(&m_Font);
@@ -54,7 +54,7 @@ void CWaitDlg::DoProgress()
 	KillTimer(ID_TIMER_DOPROGRESS);
 	if (IsWindow(CDialogEx::GetParent()->GetSafeHwnd())&&(!theApp.Initing))
 	{
-		static_cast<CMainFrame*>(CDialogEx::GetParent())->GetStatusBar()->SetPaneText(ID_SEPARATOR, L"就绪");
+		static_cast<CMainFrame*>(CDialogEx::GetParent())->GetStatusBar()->SetPaneText(ID_SEPARATOR, IsInChinese()?L"就绪":L"Ready");
 	}
 	theApp.RunningDialog = nullptr;
 	EndDialog(true);
@@ -104,7 +104,7 @@ LRESULT CProgressBar::OnInitDialog(WPARAM wParam, LPARAM lParam)
 	m_pStaticText = static_cast<CStatic*>(GetDlgItem(ID_MESSAGE_NOTICE));
 	m_pStaticText->SetWindowTextW(StaticText);
 	static_cast<CMainFrame*>(CDialogEx::GetParent())->GetStatusBar()->SetPaneText(ID_SEPARATOR, L"正在打开文件");
-	if (m_Font.CreatePointFont(120, L"微软雅黑"))
+	if (m_Font.CreatePointFont(120, L"Microsoft YaHei"))
 	{
 		static_cast<CStatic*>(GetDlgItem(IDC_GROUPTITLE))->SetFont(&m_Font);
 	}
@@ -126,7 +126,7 @@ void CProgressBar::DoProgress()
 		return;
 	}
 	KillTimer(ID_TIMER_DOPROGRESS);
-	static_cast<CMainFrame*>(CDialogEx::GetParent())->GetStatusBar()->SetPaneText(ID_SEPARATOR, L"就绪");
+	static_cast<CMainFrame*>(CDialogEx::GetParent())->GetStatusBar()->SetPaneText(ID_SEPARATOR, IsInChinese() ? L"就绪" : L"Ready");
 	theApp.RunningDialog = nullptr;
 	EndDialog(true);
 }
@@ -179,7 +179,7 @@ LRESULT CLaunchDialog::OnInitDialog(WPARAM wParam, LPARAM lParam)
 	SetBackgroundColor(RGB(50, 50, 50));
 	m_pStatic = static_cast<CStatic*>(GetDlgItem(IDC_LAUNCHTEXT));
 	m_pStatic->SetWindowTextW(L"FernFlowerUI");
-	if (m_Font.CreatePointFont(375, L"微软雅黑"))
+	if (m_Font.CreatePointFont(375, L"Microsoft YaHei"))
 	{
 		m_pStatic->SetFont(&m_Font);
 	}

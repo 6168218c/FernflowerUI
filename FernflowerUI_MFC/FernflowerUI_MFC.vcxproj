@@ -145,6 +145,7 @@
       <Culture>0x0804</Culture>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -280,6 +281,7 @@
     <ClInclude Include="ClassView.h" />
     <ClInclude Include="CommonWrapper.h" />
     <ClInclude Include="FernflowerUI_MFC.h" />
+    <ClInclude Include="FernflowerUI_MFCData.h" />
     <ClInclude Include="FernflowerUI_MFCDoc.h" />
     <ClInclude Include="FernflowerUI_MFCView.h" />
     <ClInclude Include="FileView.h" />
@@ -287,6 +289,7 @@
     <ClInclude Include="Md5Checksum.h" />
     <ClInclude Include="Md5ChecksumDefs.h" />
     <ClInclude Include="OutputWnd.h" />
+    <ClInclude Include="PropertiesWnd.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ShellTreeView.h" />
     <ClInclude Include="stdafx.h" />
@@ -300,12 +303,14 @@
     <ClCompile Include="ClassView.cpp" />
     <ClCompile Include="CommonWrapper.cpp" />
     <ClCompile Include="FernflowerUI_MFC.cpp" />
+    <ClCompile Include="FernflowerUI_MFCData.cpp" />
     <ClCompile Include="FernflowerUI_MFCDoc.cpp" />
     <ClCompile Include="FernflowerUI_MFCView.cpp" />
     <ClCompile Include="FileView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Md5Checksum.cpp" />
     <ClCompile Include="OutputWnd.cpp" />
+    <ClCompile Include="PropertiesWnd.cpp" />
     <ClCompile Include="ShellTreeView.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -322,15 +327,12 @@
   <ItemGroup>
     <None Include="FernflowerUI_MFC.reg" />
     <None Include="res\FernflowerUIMFC.rc2" />
-    <None Include="res\ribbon1.mfcribbon-ms" />
     <None Include="zlibstat.pdb" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FernflowerUIMFC.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\ .bmp" />
-    <Image Include="res\ info.bmp" />
     <Image Include="res\classview.bmp" />
     <Image Include="res\classview_hc.bmp" />
     <Image Include="res\class_view.ico" />
@@ -342,16 +344,18 @@
     <Image Include="res\FernflowerUI_MFC_Backup.ico" />
     <Image Include="res\file_view.ico" />
     <Image Include="res\file_view_hc.ico" />
-    <Image Include="res\icon2.ico" />
+    <Image Include="res\icon1.ico" />
     <Image Include="res\info.bmp" />
     <Image Include="res\menuimages.bmp" />
     <Image Include="res\menuimages_hc.bmp" />
     <Image Include="res\output_wnd.ico" />
     <Image Include="res\output_wnd_hc.ico" />
+    <Image Include="res\properti.ico" />
+    <Image Include="res\properties_wnd.ico" />
+    <Image Include="res\properties_wnd_hc.ico" />
     <Image Include="res\sort.bmp" />
     <Image Include="res\sort_hc.bmp" />
     <Image Include="res\Toolbar.bmp" />
-    <Image Include="res\toolbar1.bmp" />
     <Image Include="res\Toolbar256.bmp" />
     <Image Include="res\userimages.bmp" />
   </ItemGroup>

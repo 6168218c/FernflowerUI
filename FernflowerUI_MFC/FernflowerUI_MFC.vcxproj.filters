@@ -69,6 +69,12 @@
     <ClInclude Include="Md5ChecksumDefs.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="FernflowerUI_MFCData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PropertiesWnd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FernflowerUI_MFC.cpp">
@@ -116,13 +122,16 @@
     <ClCompile Include="Md5Checksum.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="FernflowerUI_MFCData.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertiesWnd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="FernflowerUI_MFC.reg" />
     <None Include="res\FernflowerUIMFC.rc2">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="res\ribbon1.mfcribbon-ms">
       <Filter>资源文件</Filter>
     </None>
     <None Include="zlibstat.pdb" />
@@ -181,16 +190,10 @@
     <Image Include="res\explorer_hc.ico">
       <Filter>资源文件</Filter>
     </Image>
-    <Image Include="res\icon2.ico">
-      <Filter>资源文件</Filter>
-    </Image>
     <Image Include="res\file_view.ico">
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\file_view_hc.ico">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="res\toolbar1.bmp">
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\menuimages_hc.bmp">
@@ -202,10 +205,16 @@
     <Image Include="res\info.bmp">
       <Filter>资源文件</Filter>
     </Image>
-    <Image Include="res\ .bmp">
+    <Image Include="res\icon1.ico">
       <Filter>资源文件</Filter>
     </Image>
-    <Image Include="res\ info.bmp">
+    <Image Include="res\properti.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\properties_wnd.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\properties_wnd_hc.ico">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

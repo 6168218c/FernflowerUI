@@ -6,47 +6,36 @@
 ### 下载链接:[https://github.com/6168218c/FernflowerUI/releases/latest](https://github.com/6168218c/FernflowerUI/releases/latest)
 
 
-### *3.3 Update*
-
-### English Support
-#### Thanks to @lokha for advice.
-
-We have already implemented multi-language(in fact,only two languages are available,which are English(en-US) and Chinese(zh-CN)) feature.
-But the application didn't provide the feature to toggle the language.The language is based on your Windows' UI language.
-And, as you can see,we are not native English speakers,so please help us find out the grammer mistakes within the application.
+### *3.4 Changelog & Help*
 
 #### This is what FernflowerUI is like (when your Windows' UI language is not Chinese) 
 (In the image,we decompiled iChunUtil,please visit https://github.com/iChun/iChunUtil as respect):
 
-![Image text](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/FernflowerUI3.3.jpg)
+![Image text](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/FernflowerUI3.4.jpg)
 
-Now we've added the Font Choosing feature.You can choose the font you like in the "Settings" menu.The default Font is "Microsoft YaHei UI".
-But what you can choose is only the font face and the font size.(Because the Syntax Highlight will make Java key word bold while making operators red, so we only enabled these two to avoid making Syntax Highlight terrible)
+Now we've added the feature of finding a specific word in the .java file. Press Ctrl+F if you have opened a .java file , and the find dialog will be shown , allowing you find words in the current Java file.
 
-As metioned above,we have added some opinions:Quick decompile and Clear cache.If you enable "Quick decompile",when FernflowerUI is decompling using fernflower.jar,JRE will launch more than 2 threads to run the Jar.
-The CPU utilization will be almost 100%,while the decompile speed is increased.If you disable it, JRE will only use one CPU to decompile.
+We've also added the feature of saving either the whole Jar file or the Java file you are viewing , you can press Ctrl+S to save the whole Jar file , and press Ctrl+Shift+S to save the current Java file.
+For the feature above , we've added the feature of saving the whole jar file automatically.You can enable the feature through the menu item that is in the submenu of "Settings".If the feature is enabled , you can find the decompiled jar file in the folder "\decompile" in the folder which the source jar file is in.
+Besides , you can decompile the Jar file through the MRU(Most Recently Used) file list now.This time the application will decompile quickly thanks to the cache it saved.
 
-The other opinion helps you to clear the decompile cache that is stored in %LocalAppdata%\FernflowerUI (which is the same as %UserProFile%\Appdata\Local\FernflowerUI) to make FernflowerUI just read from the cache the next time you decompile the same Jar file.FernflowerUI will begin clearing when all of the instances of the application are closed.
-It can be useful when you don't want to delete the cache manually using Windows Explorer.
+Some small adjustments aren't metioned.
 
-When you are viewing the decompiled Java Source file,you will see the line number in the left of the richedit window.
-You can also press Ctrl+S to save the current (Active) Java Source file.
-
-
-现在我们增加了字体选择功能。你可以在"设置"菜单中选择你喜爱的字体。默认字体是微软雅黑。但你只可以选择字体样式和字体大小（因为语法高亮会改变一些字体格式，因此我们只提供了这两个功能而避免使语法高亮太糟糕）
-
-像上面提到的那样，我们增加了一些选项：快速反编译和清除缓存。如果你勾选“快速反编译”，fernflower.jar在反编译时会使用多核反编译，导致CPU占用率接近100%，但反编译速度会变快不少。
-
-另外一个选项是"清除缓存"，这个选项帮助你清除%LocalAppdata%\FernflowerUI里的用来提升反编译速度的缓存。仅当所有FernflowerUI实例关闭后才会开始清除缓存。懒人党（比如该项目开发人）专属。
-
-我们还实现了代码前行数的功能。在查看代码时，可以按Ctrl+S以保存当前阅览（活动的）的Java文件
+现在我们增加了字符串查找功能。当你已经打开一个Java文件后，按下Ctrl+F，“查找”对话框就会显示出来，允许你在当前Java文件中查找字符串。
+我们也增加了保存整个Jar文件和保存当前Java文件的功能，你可以按Ctrl+S来保存整个Jar文件，也可以按Ctrl+Shift+S来保存当前的Java文件。
+为了与上一个新增功能搭配，我们新增了自动保存功能。你可以在“设置”菜单中启用它。如果启用了该功能，反编译后的Jar文件将被自动保存到原Jar文件目录下的"\decompile"目录里。
+另外，也可以通过MRU文件列表(最近文件列表)来反编译Jar文件。这次反编译速度会快很多，因为它在之前一次反编译中将结果存储到了缓存。
 
 Fixed:
-If you have installed JRE but haven't set JAVA_HOME yet,now FernflowerUI won't warn that JRE hasn't been installed.The condition is that you can run "java -version" through CMD.
-If you set “Hide the name of the known file extension" in your Folder Options , FernflowerUI can show the ClassView properly now.
+Now the application will check the existance of Java Runtime Environment asynchronously.
+Improved the speed of the File View.
 
 修复:
-如果你已经安装了JRE但没有设置JAVA_HOME，FernflowerUI现在不会提示”检测到JRE未安装“。条件是在CMD中可以运行"java -version"。
-当电脑中设置"隐藏文件扩展名"时，FernflowerUI现在可以正常显示类视图及反编译后的Java文件。
+现在该程序会异步检测Java运行环境的存在。
+提升了文件视图的速度。
+
+#### P.S.: I forgot to save the source code of version 3.4,so the source code above belongs to test version of 3.4.1.
+
+#### P.S.:由于我忘记保存3.4版本的源代码，这次发布的源代码是3.4.1的测试版的代码。
 
 ## 另外,我们还在[McBBS](http://www.mcbbs.net/thread-773809-1-1.html)上发布了这个项目。

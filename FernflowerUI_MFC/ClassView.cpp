@@ -84,6 +84,18 @@ int CClassView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndClassView.SetExtendedStyle(0, TVS_EX_DOUBLEBUFFER);
 	SetWindowTheme(m_wndClassView.m_hWnd, _T("Explorer"), nullptr);
 
+	//创建提示文本
+	if (!m_wndStaticText.Create(IsInChinese() ? L"反编译Jar文件以显示类视图" : L"Decompile the Java Archive File to show the Class View",
+		SS_CENTER | SS_CENTERIMAGE, rectDummy, this))
+	{
+		TRACE0("未能创建提示文本\n");
+		return -1;      // 未能创建
+	}
+	if (m_TextFont.CreatePointFont(90, L"Microsoft YaHei"))
+	{
+		m_wndStaticText.SetFont(&m_TextFont);
+	}
+
 	// 加载图像: 
 	m_wndToolBar.Create(this, AFX_DEFAULT_TOOLBAR_STYLE, IDR_SORT);
 	m_wndToolBar.LoadToolBar(IDR_SORT, 0, 0, TRUE /* 已锁定*/);
@@ -163,6 +175,1013 @@ void CClassView::FillClassView()
 	m_wndClassView.Expand(hClass, TVE_EXPAND);
 }
 
+void CClassView::ParseClasses(CString FilePath, HTREEITEM hParentItem)
+{
+	CFile File;
+	File.Open(FilePath, CFile::modeRead | CFile::modeNoTruncate | CFile::shareDenyNone);
+	char * buf;
+	size_t length = File.GetLength();
+	buf = new char[length + 1];
+	memset(buf, 0, length + 1);
+	File.Read(buf, length);
+	for (size_t i = 0; i < length; i++)
+	{
+		if (buf[i] == '\0')
+		{
+			buf[i] = ' ';
+		}
+	}
+	buf[length] = '\0';
+	int nConLen = MultiByteToWideChar(CP_UTF8, 0, buf, -1, nullptr, 0);
+	wchar_t * wbuf = new wchar_t[nConLen + 1]{ 0 };
+	MultiByteToWideChar(CP_UTF8, 0, buf, -1, wbuf, nConLen);
+	delete buf;
+	CString Content;
+	Content = wbuf;
+	delete wbuf;
+	int len = Content.GetLength();
+	int StrPos = -1;
+	while ((StrPos = Content.Find(L'\"', StrPos + 1)) != -1)
+	{
+		CHARRANGE Range;
+		{
+			int nBackslashCount = 0;
+			for (int i = StrPos - 1; Content[i] == L'\\'; i--)
+				nBackslashCount++;
+			if (nBackslashCount % 2)
+			{
+				continue;
+			}
+		}
+		if ((Content[StrPos - 1] == L'\'') && (Content[StrPos + 1] == L'\''))
+		{
+			Content.SetAt(StrPos, L' ');
+			continue;
+		}
+		else
+		{
+			Range.cpMin = StrPos;
+			while ((StrPos = Content.Find(L'\"', StrPos + 1)) != -1)
+			{
+				int nBackslashCount = 0;
+				for (int i = StrPos - 1; Content[i] == L'\\'; i--)
+					nBackslashCount++;
+				if (nBackslashCount % 2)
+				{
+					continue;
+				}
+				else if ((Content[StrPos - 1] == L'\'') && (Content[StrPos + 1] == L'\''))
+				{
+					Content.SetAt(StrPos, L' ');
+					continue;
+				}
+				else
+				{
+					break;
+				}
+			}
+			Range.cpMax = StrPos;
+			for (int i = Range.cpMin; i <= Range.cpMax; i++)
+			{
+				const_cast<wchar_t*>((LPCWSTR)Content)[i] = L' ';
+			}
+		}
+	}
+	Content.Replace(L"\r\n", L"\n");
+	StrPos = -1;
+	while ((StrPos = Content.Find(L"//", StrPos + 1)) != -1)
+	{
+		int nEnd = Content.Find(L'\n', StrPos + 1);
+		for (int i = StrPos; i <= nEnd; i++)
+		{
+			const_cast<wchar_t*>((LPCWSTR)Content)[i] = L' ';
+		}
+	}
+	StrPos = -1;
+	while ((StrPos = Content.Find(L"static {", StrPos + 1)) != -1)
+	{
+		int nBraceCount = 0;
+		for (int i = StrPos; i < len; i++)
+		{
+			if (Content[i] == L'{')
+			{
+				nBraceCount++;
+			}
+			if (Content[i] == L'}')
+			{
+				if (nBraceCount == 1)
+				{
+					int iLast = i;
+					for (int iPos = StrPos; iPos <= iLast; iPos++)
+					{
+						const_cast<wchar_t*>((LPCWSTR)Content)[iPos] = L' ';
+					}
+					break;
+				}
+				else
+				{
+					nBraceCount--;
+				}
+			}
+		}
+	}
+	ParseInnerClass(Content, hParentItem, 0);
+	/*
+	{
+		int iClass = -1;
+		int iLast;
+		int iFirstFunction = -1;//Fields are always decleared before functions
+		int iClassContentBegin = -1;
+		while ((iClass = Content.Find(L"class", iClass + 1)) != -1)
+		{
+			HTREEITEM hClassItem = nullptr;
+			{
+				CString ClassName;
+				int nBraceCount = 0;
+				for (int i = iClass; i < len; i++)
+				{
+					if (Content[i] == L'{')
+					{
+						if (nBraceCount==0)
+						{
+							ClassName = Content.Mid(iClass + 6, Content.Find(L' ', iClass + 6) - iClass - 5);
+							iClassContentBegin = i;
+						}
+						nBraceCount++;
+					}
+					if (Content[i] == L'}')
+					{
+						if (nBraceCount == 1)
+						{
+							iLast = i;
+							break;
+						}
+						else
+						{
+							nBraceCount--;
+						}
+					}
+				}
+				//插入树视图节点
+				hClassItem = m_wndClassView.InsertItem(ClassName, 1, 1, hParentItem);
+			}
+			
+			int iFunction = -1;
+			while (((iFunction = Content.Find(L')', iFunction + 1)) != -1) && (iFunction))
+			{
+				bool IsDefiningFunc = false;
+				for (int i = iFunction + 1; i <= iLast; i++)
+				{
+					if (!isspace(Content[i]))
+					{
+						if (Content[i] == L'{'||Content[i]==L't')
+						{
+							IsDefiningFunc = true;
+							int nBraceCount = 0;
+							int iLastBrace;
+							for (iLastBrace = iFunction+1; iLastBrace <= iLast; iLastBrace++)
+							{
+								if (Content[iLastBrace] == L'{')
+								{
+									nBraceCount++;
+								}
+								if (Content[iLastBrace] == L'}')
+								{
+									if (nBraceCount == 1)
+									{
+										break;
+									}
+									else
+									{
+										nBraceCount--;
+									}
+								}
+							}
+							for (int iChar = i+1; iChar < iLastBrace; iChar++)
+							{
+								Content.SetAt(iChar, L' ');
+							}
+							break;
+						}
+						break;
+					}
+				}
+				if (IsDefiningFunc)
+				{
+					CString FunctionInfo;
+					CString ReturnTypeName;
+					bool bIsPublic;
+					bool bHasVisitedArgList = false;
+					for (int iFuncArgListBegin = iFunction; iFuncArgListBegin > iClass; iFuncArgListBegin--)
+					{
+						if (Content[iFuncArgListBegin] == L'(')
+						{
+							bHasVisitedArgList = true;
+						}
+						if ((bHasVisitedArgList) && (Content[iFuncArgListBegin] == L' '))
+						{
+							FunctionInfo = Content.Mid(iFuncArgListBegin + 1, iFunction - iFuncArgListBegin);
+							for (int i = iFuncArgListBegin - 1; i > iClass; i--)
+							{
+								if (Content[i] == L' ')
+								{
+									ReturnTypeName = Content.Mid(i + 1, iFuncArgListBegin - i);
+									ReturnTypeName = ReturnTypeName.TrimRight();
+									if (ReturnTypeName == L"public")
+									{
+										ReturnTypeName = IsInChinese() ? L"构造函数" : L"Constructor";
+										bIsPublic = true;
+									}
+									else if (ReturnTypeName == L"protected" || ReturnTypeName == L"private")
+									{
+										ReturnTypeName = IsInChinese() ? L"构造函数" : L"Constructor";
+										bIsPublic = false;
+									}
+									break;
+								}
+							}
+							int iLineBegin;
+							for (iLineBegin = iFuncArgListBegin; Content[iLineBegin] != '\n'; iLineBegin--)
+							{
+							}
+							for (; (iLineBegin < iFuncArgListBegin) && (isspace(Content[iLineBegin])); iLineBegin++)
+							{
+							}
+							if (iFirstFunction==-1)
+							{
+								iFirstFunction = iLineBegin;
+							}
+							for (int iAccessRightEnd = iLineBegin; iAccessRightEnd < iFuncArgListBegin; iAccessRightEnd++)
+							{
+								if (isspace(Content[iAccessRightEnd]))
+								{
+									CString AccessRight = Content.Mid(iLineBegin, iAccessRightEnd - iLineBegin);
+									if (AccessRight == L"public")
+									{
+										bIsPublic = true;
+									}
+									else
+									{
+										bIsPublic = false;
+									}
+									break;
+								}
+							}
+							break;
+						}
+					}
+					//插入树视图节点
+					int ImageIndex = bIsPublic ? 3 : 4;
+					m_wndClassView.InsertItem(FunctionInfo + L": " + ReturnTypeName, ImageIndex, ImageIndex, hClassItem);
+				}
+			}
+			int iLastField;
+			for (iLastField = iFirstFunction; (iLastField>iClass)&&(Content[iLastField]!=L';'); iLastField--)
+			{
+			}
+			iLastField++;
+			for (int i = iClass; i < iLastField; i++)
+			{
+				if (Content[i] == L';')
+				{
+					int LineBegin;
+					for (LineBegin = i; (LineBegin > iClass) && (Content[LineBegin] != L'\n'); LineBegin--)
+					{
+					}
+					LineBegin++;
+					for (; (LineBegin < i)&&(isspace(Content[LineBegin])); LineBegin++)
+					{
+					}
+					CString ThisLine = Content.Mid(LineBegin, i - LineBegin + 1);
+					bool bFieldInited = false;
+					if (ThisLine.Find(L'=') != -1)
+					{
+						bFieldInited = true;
+					}
+					bool bIsPublic = false;
+					CString FieldName;
+					CString FieldType;
+					for (int iAccessRightEnd = LineBegin; iAccessRightEnd < i; iAccessRightEnd++)
+					{
+						if (isspace(Content[iAccessRightEnd]))
+						{
+							CString AccessRight = Content.Mid(LineBegin, iAccessRightEnd - LineBegin);
+							if (AccessRight == L"public")
+							{
+								bIsPublic = true;
+							}
+							else
+							{
+								bIsPublic = false;
+							}
+							break;
+						}
+					}
+					if (bFieldInited)
+					{
+						for (int iFieldNameEnd = i; iFieldNameEnd > LineBegin; iFieldNameEnd--)
+						{
+							if (Content[iFieldNameEnd] == L'=')
+							{
+								bool bHasFoundType = false;
+								int iTypeIndex = 0;
+								for (int iFieldNameBegin = iFieldNameEnd; iFieldNameBegin > LineBegin; iFieldNameBegin++)
+								{
+									if (isspace(Content[iFieldNameBegin]))
+									{
+										if (!bHasFoundType)
+										{
+											bHasFoundType = true;
+											iTypeIndex = iFieldNameBegin;
+											continue;
+										}
+										else
+										{
+											FieldName = Content.Mid(iTypeIndex + 1, iFieldNameEnd - iTypeIndex);
+											FieldType = Content.Mid(iFieldNameBegin, iTypeIndex - iFieldNameBegin + 1);
+											break;
+										}
+									}
+								}
+							}
+						}
+					}
+					else
+					{
+						bool bHasFoundType = false;
+						int iTypeIndex = 0;
+						for (int iFieldNameBegin = i; iFieldNameBegin > LineBegin; iFieldNameBegin--)
+						{
+							if (isspace(Content[iFieldNameBegin]))
+							{
+								if (!bHasFoundType)
+								{
+									bHasFoundType = true;
+									iTypeIndex = iFieldNameBegin;
+									continue;
+								}
+								else
+								{
+									FieldName = Content.Mid(iTypeIndex + 1, i - iTypeIndex - 1);
+									FieldType = Content.Mid(iFieldNameBegin + 1, iTypeIndex - iFieldNameBegin - 1);
+									break;
+								}
+							}
+						}
+					}
+					//插入树视图节点
+					int ImageIndex = bIsPublic ? 5 : 5;
+					m_wndClassView.InsertItem(FieldName + L": " + FieldType, ImageIndex, ImageIndex, hClassItem, TVI_FIRST);
+				}
+			}
+		}
+	}*/
+	
+}
+
+void CClassView::ParseInnerClass(CString Content, HTREEITEM hParentItem, int nOffset)
+{
+	int len = Content.GetLength();
+	CString Backup = Content;
+	{
+		HTREEITEM hLastClass = TVI_FIRST;
+		int iClass = -1;
+		int iLast;
+		while ((iClass = Content.Find(L"class", iClass + 1)) != -1)
+		{
+			int iFirstFunction = -1;//Fields are always decleared before functions
+			int iClassContentBegin = -1;
+			bool bIsAbstract;
+			if (!isspace(Content[iClass - 1]) || !isspace(Content[iClass + 5]))
+			{
+				continue;
+			}
+			HTREEITEM hClassItem = nullptr;
+			{
+				CString ClassName;
+				CHARRANGE Range;
+				int nBraceCount = 0;
+				int iInnerStartIndex;
+				for (int i = iClass; i < len; i++)
+				{
+					if (Content[i] == L'{')
+					{
+						if (nBraceCount == 0)
+						{
+							ClassName = Content.Mid(iClass + 6, Content.Find(L' ', iClass + 6) - iClass - 5);
+							Range.cpMin = iClass + 6 + nOffset;
+							Range.cpMax = Content.Find(L' ', iClass + 6) + nOffset;
+							iClassContentBegin = i;
+						}
+						if (nBraceCount == 1)
+						{
+							iInnerStartIndex = i + 1;
+						}
+						nBraceCount++;
+					}
+					if (Content[i] == L'}')
+					{
+						if (nBraceCount == 1)
+						{
+							iLast = i;
+							break;
+						}
+						if (nBraceCount == 2)
+						{
+							for (int Index = iInnerStartIndex; Index < i-1; Index++)
+							{
+								if(!isspace(Content[Index]))
+									Content.SetAt(Index, L' ');
+							}
+						}
+						nBraceCount--;
+					}
+				}
+				int iAbstract;
+				for (iAbstract = iClass - 1; isspace(Content[iAbstract]); iAbstract--)
+				{ 
+				}
+				for(;(iAbstract>=0)&&!isspace(Content[iAbstract]);iAbstract--)
+				{
+				}
+				CString AbstractiDef = Content.Mid(iAbstract + 1, iClass - iAbstract - 1);
+				if (AbstractiDef==L"abstract")
+				{
+					bIsAbstract = true;
+				}
+				else
+				{
+					bIsAbstract = false;
+				}
+				//插入树视图节点
+				hClassItem = m_wndClassView.InsertItem(ClassName, 1, 1, hParentItem, hLastClass);
+				hLastClass = hClassItem;
+				m_mapWordRange[hClassItem] = Range;
+			}
+
+			int iFunction = iClass + 1;
+			while (((iFunction = Content.Find(L')', iFunction + 1)) != -1) && (iFunction <= iLast))
+			{
+				bool IsDefiningFunc = false;
+				for (int i = iFunction + 1; i <= iLast; i++)
+				{
+					if (!isspace(Content[i]))
+					{
+						if (Content[i] == L'{' || Content[i] == L't')
+						{
+							IsDefiningFunc = true;
+							int nBraceCount = 0;
+							int iLastBrace;
+							for (iLastBrace = iFunction + 1; iLastBrace < iLast; iLastBrace++)
+							{
+								if (Content[iLastBrace] == L'{')
+								{
+									nBraceCount++;
+								}
+								if (Content[iLastBrace] == L'}')
+								{
+									if (nBraceCount == 1)
+									{
+										break;
+									}
+									else
+									{
+										nBraceCount--;
+									}
+								}
+							}
+							if (nBraceCount == 0)
+							{
+								VERIFY(bIsAbstract);
+								break;
+							}
+							for (int iChar = i + 1; iChar < iLastBrace; iChar++)
+							{
+								Content.SetAt(iChar, L' ');
+							}
+							break;
+						}
+						if(bIsAbstract&&(Content[i]==L';'))
+						{
+							int iLineBegin;
+							for (iLineBegin = i; Content[iLineBegin] != L'\n'; iLineBegin--)
+							{
+							}
+							iLineBegin++;
+							CString ThisLine = Content.Mid(iLineBegin, i - iLineBegin);
+							if (ThisLine.Find(L'=') == -1)
+							{
+								IsDefiningFunc = true;
+							}
+							else
+							{
+								IsDefiningFunc = false;
+							}
+						}
+						break;
+					}
+				}
+				if (IsDefiningFunc)
+				{
+					CString FunctionInfo;
+					CHARRANGE Range;
+					CString ReturnTypeName;
+					bool bIsPublic;
+					bool bHasVisitedArgList = false;
+					for (int iFuncArgListBegin = iFunction; iFuncArgListBegin > iClass; iFuncArgListBegin--)
+					{
+						if (Content[iFuncArgListBegin] == L'(')
+						{
+							bHasVisitedArgList = true;
+							Range.cpMax = iFuncArgListBegin + nOffset;
+						}
+						if ((bHasVisitedArgList) && (isspace(Content[iFuncArgListBegin])))
+						{
+							FunctionInfo = Content.Mid(iFuncArgListBegin + 1, iFunction - iFuncArgListBegin);
+							Range.cpMin = iFuncArgListBegin + 1 + nOffset;
+							for (int i = iFuncArgListBegin - 1; i > iClass; i--)
+							{
+								if (isspace(Content[i]))
+								{
+									ReturnTypeName = Content.Mid(i + 1, iFuncArgListBegin - i);
+									ReturnTypeName = ReturnTypeName.TrimRight();
+									if (ReturnTypeName == L"public")
+									{
+										ReturnTypeName = IsInChinese() ? L"构造函数" : L"Constructor";
+										bIsPublic = true;
+									}
+									else if (ReturnTypeName == L"protected" || ReturnTypeName == L"private")
+									{
+										ReturnTypeName = IsInChinese() ? L"构造函数" : L"Constructor";
+										bIsPublic = false;
+									}
+									else
+									{
+										bIsPublic = false;
+									}
+									break;
+								}
+							}
+							int iLineBegin;
+							for (iLineBegin = iFuncArgListBegin; Content[iLineBegin] != '\n'; iLineBegin--)
+							{
+							}
+							for (; (iLineBegin < iFuncArgListBegin) && (isspace(Content[iLineBegin])); iLineBegin++)
+							{
+							}
+							if (iFirstFunction == -1)
+							{
+								iFirstFunction = iLineBegin;
+							}
+							for (int iAccessRightEnd = iLineBegin; iAccessRightEnd < iFuncArgListBegin; iAccessRightEnd++)
+							{
+								if (isspace(Content[iAccessRightEnd]))
+								{
+									CString AccessRight = Content.Mid(iLineBegin, iAccessRightEnd - iLineBegin);
+									if (AccessRight == L"public")
+									{
+										bIsPublic = true;
+									}
+									else
+									{
+										bIsPublic = false;
+									}
+									break;
+								}
+							}
+							break;
+						}
+					}
+					if (FunctionInfo[0]==L'(')
+					{
+						continue;
+					}
+					//插入树视图节点
+					int ImageIndex = bIsPublic ? 4 : 5;
+					HTREEITEM hItem = m_wndClassView.InsertItem(FunctionInfo + L" : " + ReturnTypeName, ImageIndex, ImageIndex, hClassItem);
+					m_mapWordRange[hItem] = Range;
+				}
+			}
+			if (iFirstFunction == -1)
+			{
+				iFirstFunction = iLast;
+			}
+			int iLastField;
+			HTREEITEM hLastField = TVI_FIRST;
+			for (iLastField = iFirstFunction; (iLastField>iClass) && (Content[iLastField] != L';'); iLastField--)
+			{
+			}
+			iLastField++;
+			for (int i = iClass; i < iLastField; i++)
+			{
+				if (Content[i] == L';')
+				{
+					int LineBegin;
+					for (LineBegin = i; (LineBegin > iClass) && (Content[LineBegin] != L'\n'); LineBegin--)
+					{
+					}
+					LineBegin++;
+					for (; (LineBegin < i) && (isspace(Content[LineBegin])); LineBegin++)
+					{
+					}
+					CString ThisLine = Content.Mid(LineBegin, i - LineBegin + 1);
+					bool bFieldInited = false;
+					if (ThisLine.Find(L'=') != -1)
+					{
+						bFieldInited = true;
+					}
+					bool bIsPublic = false;
+					CString FieldName;
+					CString FieldType;
+					CHARRANGE Range;
+					for (int iAccessRightEnd = LineBegin; iAccessRightEnd < i; iAccessRightEnd++)
+					{
+						if (isspace(Content[iAccessRightEnd]))
+						{
+							CString AccessRight = Content.Mid(LineBegin, iAccessRightEnd - LineBegin);
+							if (AccessRight == L"public")
+							{
+								bIsPublic = true;
+							}
+							else
+							{
+								bIsPublic = false;
+							}
+							break;
+						}
+					}
+					if (bFieldInited)
+					{
+						for (int iFieldNameEnd = i; iFieldNameEnd > LineBegin; iFieldNameEnd--)
+						{
+							if (Content[iFieldNameEnd] == L'=')
+							{
+								bool bHasFoundType = false;
+								int iTypeIndex = 0;
+								int iFieldNameBegin = iFieldNameEnd - 1;
+								for (; (iFieldNameBegin > LineBegin)&&(isspace(Content[iFieldNameBegin])); iFieldNameBegin--)
+								{
+								}
+								iFieldNameEnd = iFieldNameBegin + 1;
+								for (; iFieldNameBegin >= LineBegin-1; iFieldNameBegin--)
+								{
+									if (isspace(Content[iFieldNameBegin]))
+									{
+										if (!bHasFoundType)
+										{
+											bHasFoundType = true;
+											iTypeIndex = iFieldNameBegin;
+											continue;
+										}
+										else
+										{
+											FieldName = Content.Mid(iTypeIndex + 1, iFieldNameEnd - iTypeIndex - 1);
+											FieldType = Content.Mid(iFieldNameBegin + 1, iTypeIndex - iFieldNameBegin);
+											Range.cpMin = iTypeIndex + 1 + nOffset;
+											Range.cpMax = iFieldNameEnd + nOffset;
+											break;
+										}
+									}
+								}
+								break;
+							}
+						}
+					}
+					else
+					{
+						bool bHasFoundType = false;
+						int iTypeIndex = 0;
+						for (int iFieldNameBegin = i; iFieldNameBegin > iClass; iFieldNameBegin--)
+						{
+							if (isspace(Content[iFieldNameBegin]))
+							{
+								if (!bHasFoundType)
+								{
+									bHasFoundType = true;
+									iTypeIndex = iFieldNameBegin;
+									continue;
+								}
+								else
+								{
+									FieldName = Content.Mid(iTypeIndex + 1, i - iTypeIndex - 1);
+									FieldType = Content.Mid(iFieldNameBegin + 1, iTypeIndex - iFieldNameBegin - 1);
+									Range.cpMin = iTypeIndex + 1 + nOffset;
+									Range.cpMax = i + nOffset;
+									break;
+								}
+							}
+						}
+					}
+					//插入树视图节点
+					int ImageIndex = bIsPublic ? 6 : 7;
+					HTREEITEM hItem = m_wndClassView.InsertItem(FieldName + L" : " + FieldType, ImageIndex, ImageIndex, hClassItem, hLastField);
+					hLastField = hItem;
+					m_mapWordRange[hItem] = Range;
+				}
+			}
+			if (iClassContentBegin != -1)
+			{
+				ParseInnerClass(Backup.Mid(iClass + 1, iLast - iClass - 1), hClassItem, iClass + 1);
+			}
+			iClass = iLast;
+		}
+
+
+
+		//Another one
+
+		int iInterface = -1;
+		while ((iInterface = Content.Find(L"interface", iInterface + 1)) != -1)
+		{
+			int iFirstFunction = -1;//Fields are always decleared before functions
+			int iInterfaceContentBegin = -1;
+			bool bIsAbstract = true;
+			if (!isspace(Content[iInterface - 1]) || !isspace(Content[iInterface + 9]))
+			{
+				continue;
+			}
+			HTREEITEM hClassItem = nullptr;
+			{
+				CString ClassName;
+				CHARRANGE Range;
+				int nBraceCount = 0;
+				int iInnerStartIndex;
+				for (int i = iInterface; i < len; i++)
+				{
+					if (Content[i] == L'{')
+					{
+						if (nBraceCount == 0)
+						{
+							ClassName = Content.Mid(iInterface + 10, Content.Find(L' ', iInterface + 10) - iInterface - 9);
+							Range.cpMin = iInterface + 10 + nOffset;
+							Range.cpMax = Content.Find(L' ', iInterface + 10) + nOffset;
+							iInterfaceContentBegin = i;
+						}
+						if (nBraceCount == 1)
+						{
+							iInnerStartIndex = i + 1;
+						}
+						nBraceCount++;
+					}
+					if (Content[i] == L'}')
+					{
+						if (nBraceCount == 1)
+						{
+							iLast = i;
+							break;
+						}
+						if (nBraceCount == 2)
+						{
+							for (int Index = iInnerStartIndex; Index < i - 1; Index++)
+							{
+								if (!isspace(Content[Index]))
+									Content.SetAt(Index, L' ');
+							}
+						}
+						nBraceCount--;
+					}
+				}
+				//插入树视图节点
+				hClassItem = m_wndClassView.InsertItem(ClassName, 2, 2, hParentItem, hLastClass);
+				hLastClass = hClassItem;
+				m_mapWordRange[hClassItem] = Range;
+			}
+
+			int iFunction = iInterface + 1;
+			while (((iFunction = Content.Find(L')', iFunction + 1)) != -1) && (iFunction <= iLast))
+			{
+				bool IsDefiningFunc = false;
+				for (int i = iFunction + 1; i <= iLast; i++)
+				{
+					if (!isspace(Content[i]))
+					{
+						if (bIsAbstract && (Content[i] == L';'|| Content[i] == L't'))
+						{
+							int iLineBegin;
+							for (iLineBegin = i; Content[iLineBegin] != L'\n'; iLineBegin--)
+							{
+							}
+							iLineBegin++;
+							CString ThisLine = Content.Mid(iLineBegin, i - iLineBegin);
+							if (ThisLine.Find(L'=') == -1)
+							{
+								IsDefiningFunc = true;
+							}
+							else
+							{
+								IsDefiningFunc = false;
+							}
+						}
+						break;
+					}
+				}
+				if (IsDefiningFunc)
+				{
+					CString FunctionInfo;
+					CHARRANGE Range;
+					CString ReturnTypeName;
+					bool bIsPublic = true;
+					bool bHasVisitedArgList = false;
+					for (int iFuncArgListBegin = iFunction; iFuncArgListBegin > iInterface; iFuncArgListBegin--)
+					{
+						if (Content[iFuncArgListBegin] == L'(')
+						{
+							bHasVisitedArgList = true;
+							Range.cpMax = iFuncArgListBegin + nOffset;
+						}
+						if ((bHasVisitedArgList) && (isspace(Content[iFuncArgListBegin])))
+						{
+							FunctionInfo = Content.Mid(iFuncArgListBegin + 1, iFunction - iFuncArgListBegin);
+							Range.cpMin = iFuncArgListBegin + 1 + nOffset;
+							for (int i = iFuncArgListBegin - 1; i > iInterface; i--)
+							{
+								if (isspace(Content[i]))
+								{
+									ReturnTypeName = Content.Mid(i + 1, iFuncArgListBegin - i);
+									ReturnTypeName = ReturnTypeName.TrimRight();
+									if (ReturnTypeName == L"public")
+									{
+										ReturnTypeName = IsInChinese() ? L"构造函数" : L"Constructor";
+										bIsPublic = true;
+									}
+									else if (ReturnTypeName == L"protected" || ReturnTypeName == L"private")
+									{
+										ReturnTypeName = IsInChinese() ? L"构造函数" : L"Constructor";
+										bIsPublic = false;
+									}
+									else
+									{
+										bIsPublic = false;
+									}
+									break;
+								}
+							}
+							int iLineBegin;
+							for (iLineBegin = iFuncArgListBegin; Content[iLineBegin] != '\n'; iLineBegin--)
+							{
+							}
+							for (; (iLineBegin < iFuncArgListBegin) && (isspace(Content[iLineBegin])); iLineBegin++)
+							{
+							}
+							if (iFirstFunction == -1)
+							{
+								iFirstFunction = iLineBegin;
+							}
+							for (int iAccessRightEnd = iLineBegin; iAccessRightEnd < iFuncArgListBegin; iAccessRightEnd++)
+							{
+								if (isspace(Content[iAccessRightEnd]))
+								{
+									CString AccessRight = Content.Mid(iLineBegin, iAccessRightEnd - iLineBegin);
+									if (AccessRight == L"private"||AccessRight==L"protected")
+									{
+										bIsPublic = false;
+									}
+									else
+									{
+										bIsPublic = true;
+									}
+									break;
+								}
+							}
+							break;
+						}
+					}
+					if (FunctionInfo[0] == L'(')
+					{
+						continue;
+					}
+					//插入树视图节点
+					int ImageIndex = bIsPublic ? 4 : 5;
+					HTREEITEM hItem = m_wndClassView.InsertItem(FunctionInfo + L" : " + ReturnTypeName, ImageIndex, ImageIndex, hClassItem);
+					m_mapWordRange[hItem] = Range;
+				}
+			}
+			if (iFirstFunction == -1)
+			{
+				iFirstFunction = iLast;
+			}
+			int iLastField;
+			HTREEITEM hLastField = TVI_FIRST;
+			for (iLastField = iFirstFunction; (iLastField>iInterface) && (Content[iLastField] != L';'); iLastField--)
+			{
+			}
+			iLastField++;
+			for (int i = iInterface; i < iLastField; i++)
+			{
+				if (Content[i] == L';')
+				{
+					int LineBegin;
+					for (LineBegin = i; (LineBegin > iInterface) && (Content[LineBegin] != L'\n'); LineBegin--)
+					{
+					}
+					LineBegin++;
+					for (; (LineBegin < i) && (isspace(Content[LineBegin])); LineBegin++)
+					{
+					}
+					CString ThisLine = Content.Mid(LineBegin, i - LineBegin + 1);
+					bool bFieldInited = false;
+					if (ThisLine.Find(L'=') != -1)
+					{
+						bFieldInited = true;
+					}
+					bool bIsPublic = false;
+					CString FieldName;
+					CString FieldType;
+					CHARRANGE Range;
+					for (int iAccessRightEnd = LineBegin; iAccessRightEnd < i; iAccessRightEnd++)
+					{
+						if (isspace(Content[iAccessRightEnd]))
+						{
+							CString AccessRight = Content.Mid(LineBegin, iAccessRightEnd - LineBegin);
+							if (AccessRight == L"public")
+							{
+								bIsPublic = true;
+							}
+							else
+							{
+								bIsPublic = false;
+							}
+							break;
+						}
+					}
+					if (bFieldInited)
+					{
+						for (int iFieldNameEnd = i; iFieldNameEnd > LineBegin; iFieldNameEnd--)
+						{
+							if (Content[iFieldNameEnd] == L'=')
+							{
+								bool bHasFoundType = false;
+								int iTypeIndex = 0;
+								int iFieldNameBegin = iFieldNameEnd - 1;
+								for (; (iFieldNameBegin > LineBegin) && (isspace(Content[iFieldNameBegin])); iFieldNameBegin--)
+								{
+								}
+								iFieldNameEnd = iFieldNameBegin + 1;
+								for (; iFieldNameBegin > LineBegin; iFieldNameBegin--)
+								{
+									if (isspace(Content[iFieldNameBegin]))
+									{
+										if (!bHasFoundType)
+										{
+											bHasFoundType = true;
+											iTypeIndex = iFieldNameBegin;
+											continue;
+										}
+										else
+										{
+											FieldName = Content.Mid(iTypeIndex + 1, iFieldNameEnd - iTypeIndex - 1);
+											FieldType = Content.Mid(iFieldNameBegin + 1, iTypeIndex - iFieldNameBegin);
+											Range.cpMin = iTypeIndex + 1 + nOffset;
+											Range.cpMax = iFieldNameEnd + nOffset;
+											break;
+										}
+									}
+								}
+								break;
+							}
+						}
+					}
+					else
+					{
+						bool bHasFoundType = false;
+						int iTypeIndex = 0;
+						for (int iFieldNameBegin = i; iFieldNameBegin > LineBegin; iFieldNameBegin--)
+						{
+							if (isspace(Content[iFieldNameBegin]))
+							{
+								if (!bHasFoundType)
+								{
+									bHasFoundType = true;
+									iTypeIndex = iFieldNameBegin;
+									continue;
+								}
+								else
+								{
+									FieldName = Content.Mid(iTypeIndex + 1, i - iTypeIndex - 1);
+									FieldType = Content.Mid(iFieldNameBegin + 1, iTypeIndex - iFieldNameBegin - 1);
+									Range.cpMin = iTypeIndex + 1 + nOffset;
+									Range.cpMax = i + nOffset;
+									break;
+								}
+							}
+						}
+					}
+					//插入树视图节点
+					int ImageIndex = bIsPublic ? 6 : 7;
+					HTREEITEM hItem = m_wndClassView.InsertItem(FieldName + L" : " + FieldType, ImageIndex, ImageIndex, hClassItem, hLastField);
+					hLastField = hItem;
+					m_mapWordRange[hItem] = Range;
+				}
+			}
+			if (iInterfaceContentBegin != -1)
+			{
+				ParseInnerClass(Backup.Mid(iInterface + 1, iLast - iInterface - 1), hClassItem, iInterface + 1);
+			}
+			iInterface = iLast;
+		}
+	}
+}
+
 void CClassView::OnContextMenu(CWnd* pWnd, CPoint point)
 {
 	CTreeCtrl* pWndTree = (CTreeCtrl*)&m_wndClassView;
@@ -220,6 +1239,17 @@ void CClassView::AdjustLayout()
 
 	m_wndToolBar.SetWindowPos(NULL, rectClient.left, rectClient.top, rectClient.Width(), cyTlb, SWP_NOACTIVATE | SWP_NOZORDER);
 	m_wndClassView.SetWindowPos(NULL, rectClient.left + 1, rectClient.top + cyTlb + 1, rectClient.Width() - 2, rectClient.Height() - cyTlb - 2, SWP_NOACTIVATE | SWP_NOZORDER);
+	m_wndStaticText.SetWindowPos(NULL, rectClient.left + 1, rectClient.top + cyTlb + 1, rectClient.Width() - 2, rectClient.Height() - cyTlb - 2, SWP_NOACTIVATE | SWP_NOZORDER);
+	if (theApp.Md5ofFile==L"")
+	{
+		m_wndClassView.ShowWindow(SW_HIDE);
+		m_wndStaticText.ShowWindow(SW_SHOW);
+	}
+	else
+	{
+		m_wndStaticText.ShowWindow(SW_HIDE);
+		m_wndClassView.ShowWindow(SW_SHOW);
+	}
 }
 
 BOOL CClassView::PreTranslateMessage(MSG* pMsg)
@@ -248,7 +1278,8 @@ void CClassView::OnSort(UINT id)
 
 void CClassView::OnUpdateSort(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck(pCmdUI->m_nID == m_nCurrSort);
+	//pCmdUI->SetCheck(pCmdUI->m_nID == m_nCurrSort);
+	pCmdUI->Enable(FALSE);
 }
 
 void CClassView::OnClassAddMemberFunction()
@@ -307,10 +1338,22 @@ void CClassView::OnNewFolder()
 			Path += StringStack.top();
 			StringStack.pop();
 		}
-		CStringA Cmd = "cmd /c explorer /select,\"";
+		/*CStringA Cmd = "cmd /c explorer /select,\"";
 		Cmd += Path;
 		Cmd += "\"";
-		WinExec(Cmd, SW_HIDE);
+		WinExec(Cmd, SW_HIDE);**/
+		LPITEMIDLIST idlChild;
+		theApp.GetShellManager()->ItemFromPath(Path, idlChild);
+		auto OpenThread=[](LPITEMIDLIST pidl){
+			SHOpenFolderAndSelectItems(pidl, 0, nullptr, 0);
+			theApp.GetShellManager()->FreeItem(pidl);
+		};
+		std::thread thrd = std::thread(OpenThread, idlChild);
+		thrd.detach();
+	}
+	else
+	{
+
 	}
 }
 
@@ -377,7 +1420,7 @@ void CClassView::SearchClass(CStringW Path, HTREEITEM hParent)
 			CStringW Class = Find.GetFilePath();
 			if (Find.IsDirectory())
 			{
-				SearchClass(Class, m_wndClassView.InsertItem(Find.GetFileTitle(), 2, 2, hParent));
+				SearchClass(Class, m_wndClassView.InsertItem(Find.GetFileTitle(), 3, 3, hParent));
 			}
 		}
 	}
@@ -395,7 +1438,7 @@ void CClassView::SearchClass(CStringW Path, HTREEITEM hParent)
 				strTmp.MakeLower();
 				if (strTmp.CompareNoCase(L".java") == 0)
 				{
-					m_wndClassView.InsertItem(Find.GetFileTitle(), 1, 1, hParent);
+					ParseClasses(Find.GetFilePath(), m_wndClassView.InsertItem(Find.GetFileTitle(), 0, 0, hParent));
 				}
 			}
 		}
@@ -406,6 +1449,7 @@ void CClassView::SearchClass(CStringW Path, HTREEITEM hParent)
 void CClassView::ShowClassView(const CStringW & Path)
 {
 	m_wndClassView.DeleteAllItems();
+	m_mapWordRange.clear();
 	CStringW ThisPath = Path + L"\\*.*";
 	CFileFind Find;
 	bool b = Find.FindFile(ThisPath);
@@ -418,7 +1462,7 @@ void CClassView::ShowClassView(const CStringW & Path)
 			CStringW Class = Find.GetFilePath();
 			if (Find.IsDirectory())
 			{
-				SearchClass(Class, m_wndClassView.InsertItem(Find.GetFileTitle(), 2, 2));
+				SearchClass(Class, m_wndClassView.InsertItem(Find.GetFileTitle(), 3, 3));
 			}
 		}
 	}
@@ -436,7 +1480,7 @@ void CClassView::ShowClassView(const CStringW & Path)
 				strTmp.MakeLower();
 				if (strTmp.CompareNoCase(L".java") == 0)
 				{
-					m_wndClassView.InsertItem(Find.GetFileTitle(), 1, 1);
+					ParseClasses(Find.GetFilePath(), m_wndClassView.InsertItem(Find.GetFileTitle(), 0, 0));
 				}
 			}
 		}
