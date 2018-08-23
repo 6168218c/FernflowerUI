@@ -4,8 +4,7 @@
     <RESOURCE_FILE>FernflowerUIMFC.rc</RESOURCE_FILE>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerCommandArguments>
-    </LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>/i D:\MyMC\Mermaid-Tail-Mod-1.7.10.deobf.jar</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

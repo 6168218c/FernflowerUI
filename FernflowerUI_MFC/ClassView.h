@@ -37,6 +37,8 @@ protected:
 	CViewTree m_wndClassView;
 	CStatic   m_wndStaticText;
 	CFont     m_TextFont;
+	std::map<int, int> m_mapSysImageId;
+	int m_nCurrImageCount;
 	CImageList m_ClassViewImages;
 	UINT m_nCurrSort;
 

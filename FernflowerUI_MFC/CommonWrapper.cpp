@@ -191,3 +191,64 @@ LRESULT CLaunchDialog::OnInitDialog(WPARAM wParam, LPARAM lParam)
 	}
 	return bRet;
 }
+
+void COpenFileDialog::OnCheckButtonToggled(DWORD dwIDCtl, BOOL bChecked)
+{
+	if (dwIDCtl == ID_CLASSES_INSIDE_JAR)
+	{
+		if (bChecked)
+		{
+			theApp.bDecompInsideJar = bChecked;
+		}
+		else
+		{
+			theApp.bDecompInsideJar = bChecked;
+		}
+	}
+}
+
+void CommonWrapper::COpenFileDialog::OnFolderChange()
+{
+	if (m_strRootDir != L"")
+	{
+		CString CurrPath = GetFolderPath();
+		if ((CurrPath.GetLength() < m_strRootDir.GetLength()) || (CurrPath.Left(m_strRootDir.GetLength()) != m_strRootDir))
+		{
+			ITEMIDLIST * pidl;
+			theApp.GetShellManager()->ItemFromPath(m_strRootDir, pidl);
+			CComPtr<IShellItem> pItem;
+			SHCreateItemFromIDList(pidl, IID_PPV_ARGS(&pItem));
+			theApp.GetShellManager()->FreeItem(pidl);
+			GetIFileOpenDialog()->SetFolder(pItem);
+		}
+	}
+}
+
+void CommonWrapper::COpenFileDialog::OnTypeChange()
+{
+	if (m_ofn.nFilterIndex == 1)
+	{
+		SetControlState(ID_CLASSES_INSIDE_JAR, CDCS_ENABLEDVISIBLE);
+	}
+	else
+	{
+		HideControl(ID_CLASSES_INSIDE_JAR);
+	}
+	/*HRESULT hr;
+	IFileDialog * pDlg = GetIFileOpenDialog();
+	CComPtr<IFileOpenDialog> pDialog;
+	pDlg->QueryInterface(&pDialog);
+	if (m_ofn.nFilterIndex == 3)
+	{
+		DWORD Option;
+		VERIFY(SUCCEEDED(hr = pDialog->GetOptions(&Option)));
+		VERIFY(SUCCEEDED(hr = pDialog->SetOptions(Option | FOS_ALLOWMULTISELECT)));
+	}
+	else
+	{
+		DWORD Option;
+		VERIFY(SUCCEEDED(hr = pDialog->GetOptions(&Option)));
+		Option &= ~FOS_ALLOWMULTISELECT;
+		VERIFY(SUCCEEDED(hr = pDialog->SetOptions(Option)));
+	}*/
+}

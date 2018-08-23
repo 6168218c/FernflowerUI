@@ -87,6 +87,16 @@ namespace CommonWrapper
 		CStatic * m_pStatic;
 		CFont m_Font;
 	};
+	class COpenFileDialog :public CFileDialog
+	{
+	protected:
+		void OnCheckButtonToggled(DWORD dwIDCtl, BOOL bChecked)override;
+		void OnFolderChange()override;
+		void OnTypeChange()override;
+	public:
+		using CFileDialog::CFileDialog;
+		CString m_strRootDir;
+	};
 }
 
 inline bool IsInChinese()

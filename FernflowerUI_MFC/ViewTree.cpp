@@ -155,7 +155,7 @@ void CViewTree::OnNMDblclk(NMHDR *pNMHDR, LRESULT *pResult)
 	int ImgIndex, SelectedImgIndex;
 	if (this->GetItemImage(hItem, ImgIndex, SelectedImgIndex))
 	{
-		if (ImgIndex != 3)
+		if ((ImgIndex != 3) && (ImgIndex < 8))
 		{
 			if (ImgIndex != 0)
 			{
@@ -239,7 +239,7 @@ void CViewTree::OnNMDblclk(NMHDR *pNMHDR, LRESULT *pResult)
 			CFernflowerUIMFCView * pView = static_cast<CFernflowerUIMFCView*>(CommonWrapper::GetMainFrame()->MDIGetActive()->GetActiveView());
 			pView->FinishHighLight = false;
 			std::future<void> SetHighLight = std::async(std::launch::async,[&](const CStringW & Str, CWnd * MainWnd,HTREEITEM hItem) {
-				pView->SetViewText(Str,hItem);
+				pView->SetViewText(Str, CommonWrapper::GetMainFrame()->GetClassView()->m_mapWordRange[hSelectedItem]);
 			}, Contact, AfxGetMainWnd(), hSelectedItem);
 			/*CommonWrapper::CWaitDlg Wait(AfxGetMainWnd(),
 			[]()->bool {AfxGetMainWnd()->RestoreWaitCursor(); return static_cast<CFernflowerUIMFCView*>(static_cast<CFrameWnd*>(AfxGetMainWnd())->GetActiveView())->FinishHighLight; },
@@ -252,6 +252,35 @@ void CViewTree::OnNMDblclk(NMHDR *pNMHDR, LRESULT *pResult)
 			AfxGetMainWnd()->EndWaitCursor();
 			CommonWrapper::GetMainFrame()->SetWindowText(theApp.JarFilePath+L" => "+FileName + _T(" - FernFlowerUI"));
 			File.Close();
+		}
+		else if (ImgIndex != 3)
+		{
+			std::stack<CStringW> StringStack;
+			CStringW FilePath;
+			CStringW FileName = GetItemText(hItem);
+			char * UserProFile;
+			size_t size;
+			if (_dupenv_s(&UserProFile, &size, "USERPROFILE"))
+			{
+				AfxGetMainWnd()->MessageBox(IsInChinese() ? _T("ËÑË÷%USERPROFILE%Ê§°Ü!") : _T("Failed to access %USERPROFILE%"), IsInChinese() ? _T("´íÎó") : _T("Error"), MB_ICONERROR);
+				return;
+			}
+			FilePath = UserProFile;
+			FilePath += L"\\AppData\\Local\\FernFlowerUI\\Cache\\";
+			FilePath += theApp.Md5ofFile;
+			FilePath += L"\\JarCache\\";
+			free(UserProFile);
+			StringStack.push(FileName);
+			while (hItem = GetParentItem(hItem))
+			{
+				StringStack.push(GetItemText(hItem) + L"\\");
+			}
+			while (!StringStack.empty())
+			{
+				FilePath += StringStack.top();
+				StringStack.pop();
+			}
+			ShellExecute(CommonWrapper::GetMainFrame()->GetSafeHwnd(), L"open", FilePath, nullptr, nullptr, SW_SHOW);
 		}
 	}
 	*pResult = 0;

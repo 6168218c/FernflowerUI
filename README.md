@@ -1,6 +1,7 @@
 ﻿# FernflowerUI
 ## Just a Java Decompiler with GUI and Decompile Core called Fernflower
 
+<center>![Icon](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/FernFlowerUI_MFC.ico)</center>
 
 ### Download Link:[https://github.com/6168218c/FernflowerUI/releases/latest](https://github.com/6168218c/FernflowerUI/releases/latest)
 ### 下载链接:[https://github.com/6168218c/FernflowerUI/releases/latest](https://github.com/6168218c/FernflowerUI/releases/latest)
@@ -11,32 +12,26 @@
 #### This is what FernflowerUI is like (when your Windows' UI language is not Chinese) 
 (In the image,we decompiled iChunUtil,please visit https://github.com/iChun/iChunUtil as respect):
 
-![Image text](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/FernflowerUI3.4.jpg)
+![DecompInsideJar](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/DecompInsideJar.jpg)
+![SmallUpdate](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/ViewUpdate.jpg)
 
 ### If you like the project and want to make contributions,introducing this project to others is enough:grinning:!
 
-Now we've added the feature of finding a specific word in the .java file. Press Ctrl+F if you have opened a .java file , and the find dialog will be shown , allowing you find words in the current Java file.
+Now we've add the feature of customizing the arguments passed to fernflower.jar.For a full list of the arguments,visit [https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine](https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine).
+Now you can view the data members or methods of a class/abstract class/interface through the class view,and double-click the item to open and select the member.The style is similar to [Notepad++](https://notepad-plus-plus.org/).
+Now you can decompile the class(es) inside a jar file without decompiling(in other words,a "lazy decompilation") the whole jar through the checkbox to the left of "Open" button.Thank @lokha for the suggestion.
 
-We've also added the feature of saving either the whole Jar file or the Java file you are viewing , you can press Ctrl+S to save the whole Jar file , and press Ctrl+Shift+S to save the current Java file.
-For the feature above , we've added the feature of saving the whole jar file automatically.You can enable the feature through the menu item that is in the submenu of "Settings".If the feature is enabled , you can find the decompiled jar file in the folder "\decompile" in the folder which the source jar file is in.
-Besides , you can decompile the Jar file through the MRU(Most Recently Used) file list now.This time the application will decompile quickly thanks to the cache it saved.
-
-Some small adjustments aren't metioned.
-
-现在我们增加了字符串查找功能。当你已经打开一个Java文件后，按下Ctrl+F，“查找”对话框就会显示出来，允许你在当前Java文件中查找字符串。
-我们也增加了保存整个Jar文件和保存当前Java文件的功能，你可以按Ctrl+S来保存整个Jar文件，也可以按Ctrl+Shift+S来保存当前的Java文件。
-为了与上一个新增功能搭配，我们新增了自动保存功能。你可以在“设置”菜单中启用它。如果启用了该功能，反编译后的Jar文件将被自动保存到原Jar文件目录下的"\decompile"目录里。
-另外，也可以通过MRU文件列表(最近文件列表)来反编译Jar文件。这次反编译速度会快很多，因为它在之前一次反编译中将结果存储到了缓存。
+现在我们增加了选择反编译参数的功能。若需要完整的列表，请访问[https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine](https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine)。
+现在可以通过类视图来查看每一个类/抽象类/接口的方法和数据成员。双击该项即可打开并选中该成员。风格类似于[Notepad++](https://notepad-plus-plus.org/)。
+现在可以通过“打开”按钮左边的复选框来仅仅反编译Jar文件中的几个类，而不反编译整个Jar文件。感谢@lokha的建议。
 
 Fixed:
-Now the application will check the existance of Java Runtime Environment asynchronously.
-
-Improved the speed of the File View.
+Now we have changed the fernflower.jar into the version of Intellij Community.Visit [https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine](https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine) for more info.
+Thank @lokha for the suggestion.
 
 修复:
-现在该程序会异步检测Java运行环境的存在。
-
-提升了文件视图的速度。
+现在我们将fernflower.jar换成Intellij Community的版本。为获得更多信息，访问[https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine](https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine)。
+感谢@lokha的建议。
 
 #### P.S.: I forgot to save the source code of version 3.4,so the source code above belongs to test version of 3.4.1.
 

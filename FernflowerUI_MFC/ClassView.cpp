@@ -41,6 +41,7 @@ IMPLEMENT_SERIAL(CClassViewMenuButton, CMFCToolBarMenuButton, 1)
 CClassView::CClassView()
 {
 	m_nCurrSort = ID_SORTING_GROUPBYTYPE;
+	m_nCurrImageCount = 8;
 }
 
 CClassView::~CClassView()
@@ -1440,6 +1441,15 @@ void CClassView::SearchClass(CStringW Path, HTREEITEM hParent)
 				{
 					ParseClasses(Find.GetFilePath(), m_wndClassView.InsertItem(Find.GetFileTitle(), 0, 0, hParent));
 				}
+				else
+				{
+					SHFILEINFO sfi;
+					if (SHGetFileInfo(Find.GetFilePath(), 0, &sfi, sizeof sfi, SHGFI_ICON | SHGFI_SMALLICON | SHGFI_SYSICONINDEX))
+					{
+						m_mapSysImageId[sfi.iIcon] = m_ClassViewImages.Add(sfi.hIcon);
+						m_wndClassView.InsertItem(Find.GetFileName(), m_mapSysImageId[sfi.iIcon], m_mapSysImageId[sfi.iIcon],hParent);
+					}
+				}
 			}
 		}
 	}
@@ -1481,6 +1491,15 @@ void CClassView::ShowClassView(const CStringW & Path)
 				if (strTmp.CompareNoCase(L".java") == 0)
 				{
 					ParseClasses(Find.GetFilePath(), m_wndClassView.InsertItem(Find.GetFileTitle(), 0, 0));
+				}
+				else
+				{
+					SHFILEINFO sfi;
+					if (SHGetFileInfo(Find.GetFilePath(), 0, &sfi, sizeof sfi, SHGFI_ICON | SHGFI_SMALLICON | SHGFI_SYSICONINDEX))
+					{
+						m_mapSysImageId[sfi.iIcon] = m_ClassViewImages.Add(sfi.hIcon);
+						m_wndClassView.InsertItem(Find.GetFileName(), m_mapSysImageId[sfi.iIcon], m_mapSysImageId[sfi.iIcon]);
+					}
 				}
 			}
 		}
