@@ -7,7 +7,7 @@
 ### 下载链接:[https://github.com/6168218c/FernflowerUI/releases/latest](https://github.com/6168218c/FernflowerUI/releases/latest)
 
 
-### *3.4 Changelog & Help*
+### *3.4.1 Changelog & Help*
 
 #### This is what FernflowerUI is like (when your Windows' UI language is not Chinese) 
 (In the image,we decompiled iChunUtil,please visit https://github.com/iChun/iChunUtil as respect):
@@ -33,8 +33,5 @@ Thank @lokha for the suggestion.
 现在我们将fernflower.jar换成Intellij Community的版本。为获得更多信息，访问[https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine](https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine)。
 感谢@lokha的建议。
 
-#### P.S.: I forgot to save the source code of version 3.4,so the source code above belongs to test version of 3.4.1.
-
-#### P.S.:由于我忘记保存3.4版本的源代码，这次发布的源代码是3.4.1的测试版的代码。
 
 ## 另外,我们还在[McBBS](http://www.mcbbs.net/thread-773809-1-1.html)上发布了这个项目。
