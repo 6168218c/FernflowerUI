@@ -3,8 +3,9 @@
 
 ![Icon](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/FernFlowerUI_MFC.ico)
 
->[Wiki](https://github.com/6168218c/FernflowerUI/wiki)
->[中文文档](https://github.com/6168218c/FernflowerUI/wiki)
+>[Wiki](https://github.com/6168218c/FernflowerUI/wiki) (WIP)
+
+>[中文文档](https://github.com/6168218c/FernflowerUI/wiki) (即将完成)
 
 ## What's FernflowerUI?
 It was used to enter the long and boring command line when it was first created.(Yes,just like a BATCH file)
@@ -12,6 +13,22 @@ Then several features were added, such as decompile logging,syntax highlight and
 It has updated to version 3.4.2 so far,which is a result of 1.5 year's hard(lazy) work.
 
 ## Features
+FernflowerUI can:
+
+- [x]Help you decompile Jar files,as well as Class files.(JRE required.)
+
+![Image]()
+- []Help you modify the decompiled code.
+Really bad at syntax highlight, so code editing is not supported.
+
+- [x]Search for some contents in Current Block,Current Document,All Open Documents,Current Package and The Whole Jar with the FindText dialog box.You can press Control to make the dialog box transparent.
+
+- [x]Save the Jar file by clicking the Save button.
+
+- [x]Save the decompiled content in the cache for faster decompiling in the future.
+
+- [x]Show how to get started,just for you.
+
 
 ### Download Link:[https://github.com/6168218c/FernflowerUI/releases/latest](https://github.com/6168218c/FernflowerUI/releases/latest)
 ### 下载链接:[https://github.com/6168218c/FernflowerUI/releases/latest](https://github.com/6168218c/FernflowerUI/releases/latest)
