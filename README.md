@@ -15,19 +15,19 @@ It has updated to version 3.4.2 so far,which is a result of 1.5 year's hard(lazy
 ## Features
 FernflowerUI can:
 
-- [x]Help you decompile Jar files,as well as Class files.(JRE required.)
+- [x] Help you decompile Jar files,as well as Class files.(JRE required.)
 
 ![Image]()
-- []Help you modify the decompiled code.
+- [] Help you modify the decompiled code.
 Really bad at syntax highlight, so code editing is not supported.
 
-- [x]Search for some contents in Current Block,Current Document,All Open Documents,Current Package and The Whole Jar with the FindText dialog box.You can press Control to make the dialog box transparent.
+- [x] Search for some contents in Current Block,Current Document,All Open Documents,Current Package and The Whole Jar with the FindText dialog box.You can press Control to make the dialog box transparent.
 
-- [x]Save the Jar file by clicking the Save button.
+- [x] Save the Jar file by clicking the Save button.
 
-- [x]Save the decompiled content in the cache for faster decompiling in the future.
+- [x] Save the decompiled content in the cache for faster decompiling in the future.
 
-- [x]Show how to get started,just for you.
+- [x] Show how to get started,just for you.
 
 
 ### Download Link:[https://github.com/6168218c/FernflowerUI/releases/latest](https://github.com/6168218c/FernflowerUI/releases/latest)
