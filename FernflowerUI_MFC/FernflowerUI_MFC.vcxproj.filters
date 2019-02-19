@@ -75,6 +75,9 @@
     <ClInclude Include="PropertiesWnd.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SplashView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FernflowerUI_MFC.cpp">
@@ -128,6 +131,9 @@
     <ClCompile Include="PropertiesWnd.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="SplashView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="FernflowerUI_MFC.reg" />
@@ -135,6 +141,9 @@
       <Filter>资源文件</Filter>
     </None>
     <None Include="zlibstat.pdb" />
+    <None Include="res\ribbon1.mfcribbon-ms">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FernflowerUIMFC.rc">
@@ -215,6 +224,12 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\properties_wnd_hc.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitmap2.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\startlistimage.bmp">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

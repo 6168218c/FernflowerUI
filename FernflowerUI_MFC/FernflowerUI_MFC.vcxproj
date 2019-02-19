@@ -31,7 +31,7 @@
     <ProjectGuid>{12C337DD-04ED-41ED-A6BF-632A66FF9E39}</ProjectGuid>
     <Keyword>MFCProj</Keyword>
     <RootNamespace>FernflowerUIMFC</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -40,6 +40,7 @@
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Static</UseOfMfc>
+    <WindowsAppContainer>false</WindowsAppContainer>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -292,6 +293,7 @@
     <ClInclude Include="PropertiesWnd.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ShellTreeView.h" />
+    <ClInclude Include="SplashView.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="unzip.h" />
@@ -312,6 +314,7 @@
     <ClCompile Include="OutputWnd.cpp" />
     <ClCompile Include="PropertiesWnd.cpp" />
     <ClCompile Include="ShellTreeView.cpp" />
+    <ClCompile Include="SplashView.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -327,12 +330,14 @@
   <ItemGroup>
     <None Include="FernflowerUI_MFC.reg" />
     <None Include="res\FernflowerUIMFC.rc2" />
+    <None Include="res\ribbon1.mfcribbon-ms" />
     <None Include="zlibstat.pdb" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FernflowerUIMFC.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\bitmap2.bmp" />
     <Image Include="res\classview.bmp" />
     <Image Include="res\classview_hc.bmp" />
     <Image Include="res\class_view.ico" />
@@ -355,6 +360,7 @@
     <Image Include="res\properties_wnd_hc.ico" />
     <Image Include="res\sort.bmp" />
     <Image Include="res\sort_hc.bmp" />
+    <Image Include="res\startlistimage.bmp" />
     <Image Include="res\Toolbar.bmp" />
     <Image Include="res\Toolbar256.bmp" />
     <Image Include="res\userimages.bmp" />
