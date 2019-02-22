@@ -1,37 +1,50 @@
 ﻿# FernflowerUI
-## Just a Java Decompiler with GUI and Decompile Core called Fernflower
+## Just a Graphic User Interface(GUI) Wrapper for Fernflower
 
 ![Icon](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/FernFlowerUI_MFC.ico)
 
+>[Wiki](https://github.com/6168218c/FernflowerUI/wiki) (WIP)
+
+>[中文文档](https://github.com/6168218c/FernflowerUI/wiki) (即将完成)
+
+## What's FernflowerUI?
+It was used to enter the long and boring command line when it was first created.(Yes,just like a BATCH file)
+Then several features were added, such as decompile logging,syntax highlight and some other stuff.
+It has updated to version 3.4.2 so far,which is a result of 1.5 year's hard(lazy) work.
+
+## Features
+FernflowerUI can:
+
+- [x] Help you decompile Jar files,as well as Class files.(JRE required.)
+
+![Image](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/OpenFile.jpg)
+
+- [ ] Help you modify the decompiled code.
+Really bad at syntax highlight, so code editing is not supported.
+
+- [x] Search for some contents in Current Block,Current Document,All Open Documents,Current Package and The Whole Jar with the FindText dialog box.You can press Control to make the dialog box transparent.
+
+![Image](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/FindText.jpg)
+
+- [x] Save the Jar file by clicking the Save button.
+
+![Image](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/SaveJar.jpg)
+
+- [x] Save the decompiled content in the cache for faster decompiling in the future.
+
+![Image](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/Cache.jpg)
+
+- [x] Help you do advanced decompiling with decompile arguments.(for a full list of arguments ,visit:[](https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine))
+
+![Image](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/ViewUpdate.jpg)
+
+
+- [x] Show how to get started,just for you.
+
+![Image](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/StartPage.jpg)
+
+
 ### Download Link:[https://github.com/6168218c/FernflowerUI/releases/latest](https://github.com/6168218c/FernflowerUI/releases/latest)
 ### 下载链接:[https://github.com/6168218c/FernflowerUI/releases/latest](https://github.com/6168218c/FernflowerUI/releases/latest)
-
-
-### *3.4.1 Changelog & Help*
-
-#### This is what FernflowerUI is like (when your Windows' UI language is not Chinese) 
-(In the image,we decompiled iChunUtil,please visit https://github.com/iChun/iChunUtil as respect):
-
-![DecompInsideJar](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/DecompInsideJar.jpg)
-![SmallUpdate](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/ViewUpdate.jpg)
-
-### If you like the project and want to make contributions,introducing this project to others is enough:grinning:!
-
-Now we've add the feature of customizing the arguments passed to fernflower.jar.For a full list of the arguments,visit [https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine](https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine).
-Now you can view the data members or methods of a class/abstract class/interface through the class view,and double-click the item to open and select the member.The style is similar to [Notepad++](https://notepad-plus-plus.org/).
-Now you can decompile the class(es) inside a jar file without decompiling(in other words,a "lazy decompilation") the whole jar through the checkbox to the left of "Open" button.Thank @lokha for the suggestion.
-
-现在我们增加了选择反编译参数的功能。若需要完整的列表，请访问[https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine](https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine)。
-现在可以通过类视图来查看每一个类/抽象类/接口的方法和数据成员。双击该项即可打开并选中该成员。风格类似于[Notepad++](https://notepad-plus-plus.org/)。
-现在可以通过“打开”按钮左边的复选框来仅仅反编译Jar文件中的几个类，而不反编译整个Jar文件。感谢@lokha的建议。
-
-Fixed:
-Now we have changed the fernflower.jar into the version of Intellij Community.Visit [https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine](https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine) for more info.
-Thank @lokha for the suggestion.
-
-修复:
-现在我们将fernflower.jar换成Intellij Community的版本。为获得更多信息，访问[https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine](https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine)。
-感谢@lokha的建议。
-
 
 ## 另外,我们还在[McBBS](http://www.mcbbs.net/thread-773809-1-1.html)上发布了这个项目。

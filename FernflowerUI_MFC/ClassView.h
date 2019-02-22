@@ -27,10 +27,18 @@ public:
 	void ClearAll()
 	{
 		m_wndClassView.DeleteAllItems();
-		m_mapWordRange.clear();
+		m_mapItemRange.clear();
+	}
+	CViewTree * GetTreeView()
+	{
+		return &m_wndClassView;
 	}
 
-	std::map<HTREEITEM, CHARRANGE> m_mapWordRange;
+	std::map<HTREEITEM, CHARRANGE> m_mapItemRange;
+//	std::map<HTREEITEM,std::map<CString, CHARRANGE>> m_mapScopeRange;
+	std::map<HTREEITEM, std::pair<CString, CHARRANGE>> m_mapScopeRange;
+	std::vector<CString> lstjavaFileName;
+	std::map<CString, HTREEITEM> m_mapClassFile;
 
 protected:
 	CClassToolBar m_wndToolBar;
@@ -44,7 +52,7 @@ protected:
 
 	void FillClassView();
 	void ParseClasses(CString FilePath, HTREEITEM hParentItem);
-	void ParseInnerClass(CString Content, HTREEITEM hParentItem, int nOffset);
+	void ParseInnerClass(CString Content, HTREEITEM hParentItem, int nOffset,CString NameSpace);
 	bool isspace(_In_ TCHAR Ch)
 	{
 		return (Ch == _T(' ')) || (Ch == _T('\r')) || (Ch == _T('\n')) || (Ch == _T('\t'));

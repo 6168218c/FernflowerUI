@@ -23,4 +23,6 @@ protected:
 public:
 	afx_msg void OnNMClick(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMDblclk(NMHDR *pNMHDR, LRESULT *pResult);
+	// Helper to open .java file
+	static void OpenJavaFile(const CString& JavaPath, HTREEITEM hClassItem, CHARRANGE chRange = { 0,0 });
 };

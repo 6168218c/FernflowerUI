@@ -1,9 +1,11 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ generated include file.
-// Used by FernflowerUIMFC.rc
+// Microsoft Visual C++ 生成的包含文件。
+// 供 FernflowerUIMFC.rc 使用
 //
 #define IDD_WAITBAR                     9
 #define IDD_ABOUTBOX                    100
+#define IDD_FORMVIEW                    101
+#define IDD_SPLASHFORM                  101
 #define IDD_PROGRESSBAR                 103
 #define IDR_POPUP_EDIT                  119
 #define ID_STATUSBAR_PANE1              120
@@ -92,8 +94,11 @@
 #define IDI_PROPERTIES_WND              345
 #define IDI_PROPERTIES_WND1             346
 #define IDI_PROPERTIES_WND_HC           346
+#define IDB_STARTLISTIMAGE              356
+#define IDB_STARTLIST_IMAGE             356
 #define IDC_MFCLINK1                    1001
 #define IDC_MFCEDITBROWSE1              1002
+#define IDC_HELP_CORE                   1002
 #define IDC_PROGRESS1                   1003
 #define IDC_ANIMATE1                    1006
 #define IDC_BUTTON2                     1008
@@ -109,6 +114,17 @@
 #define IDC_COMBO2                      1024
 #define IDC_CHOOSEAREA                  1024
 #define IDC_COMBO1                      1025
+#define IDC_LIST1                       1030
+#define IDC_RECENT_FILES                1032
+#define IDC_GET_STARTED                 1045
+#define IDC_RECENT                      1046
+#define IDC_MFCLINK2                    1048
+#define IDC_OPENTASK                    1049
+#define IDC_VERSIONINFO                 1050
+#define IDM_OPEN_JAR                    1060
+#define IDM_OPEN_CLASS                  1061
+#define IDC_HELP_FEATURES               1062
+#define IDC_VIEW_UPDATELOG              1063
 #define IDD_FINDTEXTBOX                 1540
 #define ID_APP_TEST                     32772
 #define ID_BUTTON2                      32773
@@ -138,6 +154,10 @@
 #define ID_FILE_SAVE32846               32846
 #define ID_FILE_SAVEAS                  32847
 #define ID_FILE_CLOSEFILE32848          32848
+#define ID_32853                        32853
+#define ID_OPENSTARTUP                  32854
+#define ID_FILE_STARTUPPAGE             32855
+#define ID_OPENSTARTPAGE                32856
 #define ID_FILE_OPEN2                   57602
 #define ID_FILE_CLOSE2                  57603
 #define ID_FILE_SAVE2                   57604
@@ -148,9 +168,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        347
-#define _APS_NEXT_COMMAND_VALUE         32851
-#define _APS_NEXT_CONTROL_VALUE         1026
+#define _APS_NEXT_RESOURCE_VALUE        357
+#define _APS_NEXT_COMMAND_VALUE         32857
+#define _APS_NEXT_CONTROL_VALUE         1063
 #define _APS_NEXT_SYMED_VALUE           328
 #endif
 #endif
