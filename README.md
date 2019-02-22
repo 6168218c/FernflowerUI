@@ -1,4 +1,4 @@
-﻿# FernflowerUI
+﻿# FernflowerUI [![Build Status](https://travis-ci.com/6168218c/FernflowerUI.svg?branch=MFC)](https://travis-ci.com/6168218c/FernflowerUI)
 ## Just a Graphic User Interface(GUI) Wrapper for Fernflower
 
 ![Icon](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/FernFlowerUI_MFC.ico)
@@ -37,7 +37,7 @@ Really bad at syntax highlight, so code editing is not supported.
 
 ![Image](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/Cache.jpg)
 
-- [x] Help you do advanced decompiling with decompile arguments.(for a full list of arguments ,visit:[](https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine))
+- [x] Help you do advanced decompiling with decompile arguments.(for a full list of arguments ,visit:[https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine](https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine))
 
 ![Image](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/ViewUpdate.jpg)
 
