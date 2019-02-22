@@ -17,31 +17,34 @@ FernflowerUI can:
 
 - [x] Help you decompile Jar files,as well as Class files.(JRE required.)
 
-![Image](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/OpenFile.jpg)
+![Image](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/OpenFile.jpg)
+
+- [x] Help you decompile classes inside a jar file sperately.
+![Image](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/DecompInsideJar.jpg)
 
 - [ ] Help you modify the decompiled code.
 Really bad at syntax highlight, so code editing is not supported.
 
 - [x] Search for some contents in Current Block,Current Document,All Open Documents,Current Package and The Whole Jar with the FindText dialog box.You can press Control to make the dialog box transparent.
 
-![Image](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/FindText.jpg)
+![Image](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/FindText.jpg)
 
 - [x] Save the Jar file by clicking the Save button.
 
-![Image](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/SaveJar.jpg)
+![Image](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/SaveJar.jpg)
 
 - [x] Save the decompiled content in the cache for faster decompiling in the future.
 
-![Image](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/Cache.jpg)
+![Image](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/Cache.jpg)
 
 - [x] Help you do advanced decompiling with decompile arguments.(for a full list of arguments ,visit:[](https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine))
 
-![Image](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/ViewUpdate.jpg)
+![Image](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/ViewUpdate.jpg)
 
 
 - [x] Show how to get started,just for you.
 
-![Image](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/StartPage.jpg)
+![Image](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/StartPage.jpg)
 
 
 ### Download Link:[https://github.com/6168218c/FernflowerUI/releases/latest](https://github.com/6168218c/FernflowerUI/releases/latest)
