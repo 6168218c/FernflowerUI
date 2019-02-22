@@ -34,7 +34,7 @@ Really bad at syntax highlight, so code editing is not supported.
 
 ![Image](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/Cache.jpg)
 
-- [x] Advanced decompiling with decompile arguments.
+- [x] Help you do advanced decompiling with decompile arguments.(for a full list of arguments ,visit:[](https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine))
 
 ![Image](https://github.com/6168218c/FernflowerUI/blob/MFC/FernflowerUI_MFC/UsingImages/ViewUpdate.jpg)
 
