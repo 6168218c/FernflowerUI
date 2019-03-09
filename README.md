@@ -1,4 +1,4 @@
-﻿# FernflowerUI [![Build Status](https://travis-ci.com/6168218c/FernflowerUI.svg?branch=MFC)](https://travis-ci.com/6168218c/FernflowerUI)
+﻿# FernflowerUI [![License](https://img.shields.io/github/license/6168218c/FernflowerUI.svg)](https://github.com/6168218c/FernflowerUI/blob/MFC/LICENSE) [![GitHub release](https://img.shields.io/github/release/6168218c/FernflowerUI.svg)](https://github.com/6168218c/FernflowerUI/releases/latest) ![Platform](https://img.shields.io/badge/platform-windows-orange.svg)  [![Issues](https://img.shields.io/github/issues/6168218c/FernflowerUI.svg)](https://github.com/6168218c/FernflowerUI/issues)
 ## Just a Graphic User Interface(GUI) Wrapper for Fernflower
 
 ![Icon](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/FernFlowerUI_MFC.ico)
