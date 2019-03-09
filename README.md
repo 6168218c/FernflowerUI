@@ -3,9 +3,9 @@
 
 ![Icon](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/FernFlowerUI_MFC.ico)
 
->[Wiki](https://github.com/6168218c/FernflowerUI/wiki) (WIP)
+>[Wiki](https://github.com/6168218c/FernflowerUI/wiki)
 
->[中文文档](https://github.com/6168218c/FernflowerUI/wiki) (即将完成)
+>[中文文档](https://github.com/6168218c/FernflowerUI/wiki/%E4%B8%BB%E9%A1%B5)
 
 ## What's FernflowerUI?
 It was used to enter the long and boring command line when it was first created.(Yes,just like a BATCH file)
