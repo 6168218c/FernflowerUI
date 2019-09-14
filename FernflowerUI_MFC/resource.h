@@ -82,20 +82,26 @@
 #define ID_VIEW_PROPERTIESWND           326
 #define IDI_FILE_VIEW_HC                327
 #define IDI_FILE_VIEW                   328
+#define ID_STARTUPFILE_OPEN             328
 #define IDD_LAUNCHBAR                   329
+#define ID_INDICATOR_LINE               329
 #define IDD_LAUNCHBAR1                  330
 #define IDD_WAITLAUNCH                  330
+#define ID_INDICATOR_COLUMN             330
 #define IDD_DECOMPLIEBAR                331
 #define IDR_TOOLBAR1                    336
 #define IDR_MENU_IMAGES                 336
 #define IDB_MENU_IMAGES_24              338
 #define IDB_BITMAP1                     339
 #define IDD_OPINIONBOX                  343
+#define IDD_SYSINFOBOX                  343
 #define IDI_PROPERTIES_WND              345
 #define IDI_PROPERTIES_WND1             346
 #define IDI_PROPERTIES_WND_HC           346
 #define IDB_STARTLISTIMAGE              356
 #define IDB_STARTLIST_IMAGE             356
+#define IDR_POPUP_ALERTWND              357
+#define IDD_DIALOG1                     360
 #define IDC_MFCLINK1                    1001
 #define IDC_MFCEDITBROWSE1              1002
 #define IDC_HELP_CORE                   1002
@@ -125,6 +131,8 @@
 #define IDM_OPEN_CLASS                  1061
 #define IDC_HELP_FEATURES               1062
 #define IDC_VIEW_UPDATELOG              1063
+#define IDC_SYSINFOEDIT                 1063
+#define IDC_EDIT1                       1064
 #define IDD_FINDTEXTBOX                 1540
 #define ID_APP_TEST                     32772
 #define ID_BUTTON2                      32773
@@ -158,6 +166,16 @@
 #define ID_OPENSTARTUP                  32854
 #define ID_FILE_STARTUPPAGE             32855
 #define ID_OPENSTARTPAGE                32856
+#define ID_32857                        32857
+#define ID_OPEN_MAINWND                 32858
+#define ID_32859                        32859
+#define ID_ENABLE_ALERTWND              32860
+#define ID_SETTINGS_INFORMWHENFINISHED  32861
+#define ID_32862                        32862
+#define ID_SAVEMDISTATE                 32863
+#define ID_32864                        32864
+#define ID_32865                        32865
+#define ID_REPORT_BUG                   32866
 #define ID_FILE_OPEN2                   57602
 #define ID_FILE_CLOSE2                  57603
 #define ID_FILE_SAVE2                   57604
@@ -168,9 +186,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        357
-#define _APS_NEXT_COMMAND_VALUE         32857
-#define _APS_NEXT_CONTROL_VALUE         1063
-#define _APS_NEXT_SYMED_VALUE           328
+#define _APS_NEXT_RESOURCE_VALUE        362
+#define _APS_NEXT_COMMAND_VALUE         32867
+#define _APS_NEXT_CONTROL_VALUE         1065
+#define _APS_NEXT_SYMED_VALUE           331
 #endif
 #endif

@@ -103,3 +103,14 @@ inline bool IsInChinese()
 {
 	return theApp.Language == CFernflowerUIMFCApp::AppLanguage::Chinese;
 }
+
+using PostTaskFunc=std::function<void(void*)>;
+const UINT WM_POST_TASK = RegisterWindowMessage(L"6168218c.FernflowerUI.FernflowerUIMFC.PostTaskMessage");
+
+//To use the Post Task Message , use ON_REGISTERED_MESSAGE first
+inline afx_msg LRESULT DefaultPostTaskProc(WPARAM wParam, LPARAM lParam)
+{
+	std::function<void(void*)>* pFunc = reinterpret_cast<std::function<void(void*)>*>(lParam);
+	(*pFunc)((void*)(wParam));
+	return TRUE;
+}

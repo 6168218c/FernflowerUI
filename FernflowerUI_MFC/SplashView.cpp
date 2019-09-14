@@ -78,7 +78,7 @@ void CSplashView::OnInitialUpdate()
 	m_ImageList.Create(16, bmpObj.bmHeight, nFlags, 0, 0);
 	m_ImageList.Add(&bmp, RGB(255, 0, 0));
 	m_wndlistCtrl.SetImageList(&m_ImageList, LVSIL_SMALL);
-	m_wndlistCtrl.SetExtendedStyle(LVS_EX_SUBITEMIMAGES | LVS_EX_ONECLICKACTIVATE | LVS_EX_DOUBLEBUFFER | LVS_EX_FULLROWSELECT);
+	m_wndlistCtrl.SetExtendedStyle(LVS_EX_SUBITEMIMAGES | LVS_EX_ONECLICKACTIVATE | LVS_EX_DOUBLEBUFFER | LVS_EX_FULLROWSELECT | LVS_EX_INFOTIP);
 	SetWindowTheme(m_wndlistCtrl.m_hWnd, _T("Explorer"), nullptr);
 
 	CFormView::OnInitialUpdate();
@@ -89,6 +89,7 @@ void CSplashView::OnInitialUpdate()
 void CSplashView::OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHint*/)
 {
 	// TODO: 在此添加专用代码和/或调用基类
+	m_wndlistCtrl.DeleteAllItems();
 	for (int i = 0; i < theApp.pMRUList->GetSize(); i++)
 	{
 		CString str = (*theApp.pMRUList)[i];
@@ -114,6 +115,7 @@ void CSplashView::OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHin
 
 BEGIN_MESSAGE_MAP(CMRUFileListCtrl, CListCtrl)
 	ON_NOTIFY_REFLECT(NM_CLICK, &CMRUFileListCtrl::OnNMClick)
+	ON_NOTIFY_REFLECT(LVN_GETINFOTIP, &CMRUFileListCtrl::OnLvnGetInfoTip)
 END_MESSAGE_MAP()
 
 
@@ -225,4 +227,21 @@ void CSplashView::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 	GetGlobalData()->fontDefaultGUIUnderline.Detach();
 	GetGlobalData()->fontDefaultGUIUnderline.Attach(hOldFont);
 	m_linkFont.Attach(hLinkFont);
+}
+
+
+void CMRUFileListCtrl::OnLvnGetInfoTip(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMLVGETINFOTIP pGetInfoTip = reinterpret_cast<LPNMLVGETINFOTIP>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	//pGetInfoTip->pszText = nullptr;
+	/*LVSETINFOTIP InfoTip = { 0 };
+	CString str = (*theApp.pMRUList)[pGetInfoTip->iItem];
+	InfoTip.iItem = pGetInfoTip->iItem;
+	InfoTip.iSubItem = pGetInfoTip->iSubItem;
+	InfoTip.pszText = str.GetBuffer();
+	SetInfoTip(&InfoTip);*/
+	CString str = (*theApp.pMRUList)[pGetInfoTip->iItem];
+	lstrcpy(pGetInfoTip->pszText, str);
+	*pResult = 0;
 }

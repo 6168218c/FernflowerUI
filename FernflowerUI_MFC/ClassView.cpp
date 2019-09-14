@@ -196,10 +196,10 @@ void CClassView::ParseClasses(CString FilePath, HTREEITEM hParentItem)
 	int nConLen = MultiByteToWideChar(CP_UTF8, 0, buf, -1, nullptr, 0);
 	wchar_t * wbuf = new wchar_t[nConLen + 1]{ 0 };
 	MultiByteToWideChar(CP_UTF8, 0, buf, -1, wbuf, nConLen);
-	delete buf;
+	delete[] buf;
 	CString Content;
 	Content = wbuf;
-	delete wbuf;
+	delete[] wbuf;
 	CString NameSpace;
 	HTREEITEM hItem = hParentItem;
 	std::stack<CString> StringStack;
@@ -1332,6 +1332,7 @@ void CClassView::AdjustLayout()
 	{
 		m_wndClassView.ShowWindow(SW_HIDE);
 		m_wndStaticText.ShowWindow(SW_SHOW);
+		m_wndStaticText.Invalidate();
 	}
 	else
 	{
@@ -1343,6 +1344,16 @@ void CClassView::AdjustLayout()
 BOOL CClassView::PreTranslateMessage(MSG* pMsg)
 {
 	return CDockablePane::PreTranslateMessage(pMsg);
+}
+
+void CClassView::ShowPane(BOOL bShow, BOOL bDelay, BOOL bActivate)
+{
+	/*if (IsMDITabbed() && bShow)
+	{
+		static_cast<CMDIChildWndEx*>(GetParent())->MDIActivate();
+		return;
+	}*/
+	CDockablePane::ShowPane(bShow, bDelay, bActivate);
 }
 
 void CClassView::OnSort(UINT id)

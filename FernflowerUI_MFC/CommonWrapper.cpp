@@ -28,7 +28,9 @@ LRESULT CWaitDlg::OnInitDialog(WPARAM wParam, LPARAM lParam)
 	}
 	if (IsWindow(CDialogEx::GetParent()->GetSafeHwnd())&&(!theApp.Initing))
 	{
-		static_cast<CMainFrame*>(CDialogEx::GetParent())->GetStatusBar()->SetPaneText(ID_SEPARATOR, L"正在执行操作");
+		CMainFrame* pFrame = DYNAMIC_DOWNCAST(CMainFrame, CDialogEx::GetParent());
+		if (pFrame)
+			pFrame->GetStatusBar()->SetPaneText(ID_SEPARATOR, L"正在执行操作");
 	}
 	if (m_Font.CreatePointFont(120, L"Microsoft YaHei"))
 	{
@@ -54,7 +56,9 @@ void CWaitDlg::DoProgress()
 	KillTimer(ID_TIMER_DOPROGRESS);
 	if (IsWindow(CDialogEx::GetParent()->GetSafeHwnd())&&(!theApp.Initing))
 	{
-		static_cast<CMainFrame*>(CDialogEx::GetParent())->GetStatusBar()->SetPaneText(ID_SEPARATOR, IsInChinese()?L"就绪":L"Ready");
+		CMainFrame* pFrame = DYNAMIC_DOWNCAST(CMainFrame, CDialogEx::GetParent());
+		if (pFrame)
+			pFrame->GetStatusBar()->SetPaneText(ID_SEPARATOR, IsInChinese() ? L"就绪" : L"Ready");
 	}
 	theApp.RunningDialog = nullptr;
 	EndDialog(true);

@@ -6,6 +6,7 @@ class CMRUFileListCtrl :public CListCtrl
 public:
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnNMClick(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnLvnGetInfoTip(NMHDR *pNMHDR, LRESULT *pResult);
 };
 
 class CStartPageLink :public CMFCLinkCtrl

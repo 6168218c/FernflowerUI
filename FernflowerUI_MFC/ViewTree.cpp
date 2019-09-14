@@ -250,7 +250,7 @@ void CViewTree::OnNMDblclk(NMHDR *pNMHDR, LRESULT *pResult)
 
 
 // Helper to open .java file
-void CViewTree::OpenJavaFile(const CString& JavaPath, HTREEITEM hClassItem, CHARRANGE chRange)
+CMDIChildWndEx * CViewTree::OpenJavaFile(const CString& JavaPath, HTREEITEM hClassItem, CHARRANGE chRange)
 {
 	// TODO: 在此处添加实现代码.
 	CFile File;
@@ -289,7 +289,7 @@ void CViewTree::OpenJavaFile(const CString& JavaPath, HTREEITEM hClassItem, CHAR
 			pView->m_wndEdit.SetSel(chRange.cpMin, chRange.cpMin);
 			pView->m_wndEdit.SetSel(chRange);
 		}
-		return;
+		return CommonWrapper::GetMainFrame()->m_MDIChildWndMap[JavaPath];
 	}
 	std::pair<HTREEITEM, CString> Pair(hClassItem, JavaPath);
 	CMDIChildWndEx * MDIChild = CommonWrapper::GetMainFrame()->CreateDocumentWindow(File.GetFileName(), (CObject*)&Pair);
@@ -315,5 +315,5 @@ void CViewTree::OpenJavaFile(const CString& JavaPath, HTREEITEM hClassItem, CHAR
 	AfxGetMainWnd()->EndWaitCursor();
 	CommonWrapper::GetMainFrame()->SetWindowText(theApp.JarFilePath + L" => " + File.GetFileName() + _T(" - FernFlowerUI"));
 	File.Close();
-	return;
+	return MDIChild;
 }

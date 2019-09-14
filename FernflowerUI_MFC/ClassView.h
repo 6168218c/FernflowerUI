@@ -75,6 +75,7 @@ protected:
 	// ÖØÐ´
 public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	virtual void ShowPane(BOOL bShow, BOOL bDelay, BOOL bActivate/* = TRUE*/);
 
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
