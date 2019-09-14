@@ -46,6 +46,10 @@ Really bad at syntax highlight, so code editing is not supported.
 
 ![Image](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/StartPage.jpg)
 
+- [x] Inform you after finishing decompilation.
+
+![Image](https://raw.githubusercontent.com/6168218c/FernflowerUI/MFC/FernflowerUI_MFC/UsingImages/DesktopAlert.jpg)
+
 
 ### Download Link:[https://github.com/6168218c/FernflowerUI/releases/latest](https://github.com/6168218c/FernflowerUI/releases/latest)
 ### 下载链接:[https://github.com/6168218c/FernflowerUI/releases/latest](https://github.com/6168218c/FernflowerUI/releases/latest)
